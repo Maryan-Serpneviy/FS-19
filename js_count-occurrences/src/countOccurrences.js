@@ -18,14 +18,14 @@
  *
  */
 function countOccurrences(phrase, letter) {
-  let timesOccur = 0;
+  let occurCount = 0;
   for (let i = 0; i < phrase.length; i++) {
     if (phrase.toLowerCase().charAt(i) === letter) {
       phrase.charAt(i).slice(i);
-      timesOccur++;
+      occurCount++;
     }
   }
-  return timesOccur;
+  return occurCount;
 }
 
 module.exports = countOccurrences;
