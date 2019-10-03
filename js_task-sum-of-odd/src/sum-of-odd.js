@@ -25,10 +25,10 @@
  * @return {number}
  */
 function rowSumOddNumbers(row) {
-  const ROW_START = row * (row - 1) + 1;
+  const rowStart = row * (row - 1) + 1;
   let sum = 0;
   for (let i = 0; i < row * 2; i += 2) {
-    sum += ROW_START + i;
+    sum += rowStart + i;
   }
   return sum;
 }
