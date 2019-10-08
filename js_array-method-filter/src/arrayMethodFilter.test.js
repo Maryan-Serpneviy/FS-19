@@ -1,0 +1,36 @@
+'use strict';
+
+const applyCustomFilter = require('./arrayMethodFilter');
+
+const source = [0, 10, 20, 30];
+applyCustomFilter();
+
+test('`filter2` is added to [].__proto__', () => {
+  expect([].filter2)
+    .toBeInstanceOf(Function);
+});
+
+test(`filter2 doesn't call default filter`, () => {
+  expect([].filter2.toString().includes('.filter('))
+    .toBe(false);
+});
+
+test('for (item) => item > 10', () => {
+  expect(source.filter2(x => x > 10))
+    .toEqual([20, 30]);
+});
+
+test('for (item) => item > 100', () => {
+  expect(source.filter2(x => x > 100))
+    .toEqual([]);
+});
+
+test('[] is filtered to []', () => {
+  expect([].filter2(x => x > 10))
+    .toEqual([]);
+});
+
+test('Source array is not changed', () => {
+  expect(source)
+    .toEqual([0, 10, 20, 30]);
+});
