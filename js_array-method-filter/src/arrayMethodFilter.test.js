@@ -30,6 +30,16 @@ test('[] is filtered to []', () => {
     .toEqual([]);
 });
 
+test('for (item, index) => index > 0', () => {
+  expect(source.filter2((x, i) => i > 0))
+    .toEqual([10, 20, 30]);
+});
+
+test('(item, index, arr) => arr === source)', () => {
+  expect(source.filter2((x, i, arr) => arr === source))
+    .toEqual([0, 10, 20, 30]);
+});
+
 test('Source array is not changed', () => {
   expect(source)
     .toEqual([0, 10, 20, 30]);
