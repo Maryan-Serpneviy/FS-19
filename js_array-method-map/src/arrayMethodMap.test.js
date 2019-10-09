@@ -25,6 +25,16 @@ test('[] is mapped to []', () => {
     .toEqual([]);
 });
 
+test('map((x, i) => i + 10)', () => {
+  expect(source.map2((x, i) => i + 10))
+    .toEqual([10, 11, 12, 13]);
+});
+
+test('map((x, i, arr) => arr === source)', () => {
+  expect(source.map2((x, i, arr) => arr === source))
+    .toEqual([true, true, true, true]);
+});
+
 test('Source array is not changed', () => {
   expect(source)
     .toEqual([0, 10, 20, 30]);
