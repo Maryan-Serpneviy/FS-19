@@ -5,33 +5,18 @@
  */
 function applyCustomEvery() {
   [].__proto__.every2 = function(callbackfn, thisArg) {
-    if (this === null || typeof callbackfn !== 'function') {
-      throw new TypeError();
-    }
-
-    let T, k;
-
     const O = Object(this);
 
-    const len = O.length >>> 0;
-
-    if (arguments.length > 1) {
-      T = thisArg;
-    }
-
-    k = 0;
-
-    while (k < len) {
+    for (let i = 0; i < this.length; i++) {
       let kValue;
 
-      if (k in O) {
-        kValue = O[k];
-        const testResult = callbackfn.call(T, kValue, k, O);
+      if (i in O) {
+        kValue = O[i];
+        const testResult = callbackfn.call(thisArg, kValue, i, O);
         if (!testResult) {
           return false;
         }
       }
-      k++;
     }
     return true;
   };
