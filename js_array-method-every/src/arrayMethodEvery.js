@@ -4,9 +4,9 @@
  * Implement method Every
  */
 function applyCustomEvery() {
-  [].__proto__.every2 = function(callbackfn, thisArg) {
+  [].__proto__.every2 = function(callback, thisArg) {
     for (let i = 0; i < this.length; i++) {
-      if (!callbackfn.call(thisArg, this[i], i, this)) {
+      if (!callback.call(thisArg, this[i], i, this)) {
         return false;
       }
     }
