@@ -75,22 +75,20 @@ function applyCustomSplice() {
       this.length = this.length - deleteCount + newElements.length;
       // calculate start index for shifting
       start = from + deleteCount;
+      if (deleteCount > 0) { start--; }
       // shift rest elements
       let e = 0;
-      if (deleteCount > 0) {
-        for (let i = start - 1; i < this.length; i++) {
+      for (let i = start; i < this.length; i++) {
+        if (deleteCount > 0) {
           for (let r = rest.length; r > 0; r--) {
             this[this.length - e - 1] = rest[rest.length - e - 1];
           }
-          e++;
         }
-      }
-      if (deleteCount <= 0) {
-        for (let i = start; i < this.length; i++) {
+        if (deleteCount <= 0) {
           this[this.length - e - 1]
           = this[this.length - e - from - newElements.length];
-          e++;
         }
+        e++;
       }
       // paste new elements
       for (let i = 0; i < newElements.length; i++) {
