@@ -1,0 +1,78 @@
+body {
+    font-family: 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    display: flex;
+}
+
+.card {
+    margin: auto;
+    margin-top: 250px;
+    width: 180px;
+    padding: 10px;
+    min-height: 200px;
+    border: 1px solid #dbdbdb;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    font-size: 11px;
+}
+
+.card__pic {
+    width: 170px;
+    align-self: center;
+    padding-top: 20px;
+}
+
+.card__title {
+    padding-top: 30px; 
+    text-align: left;       
+}
+
+.card__code {
+    text-align: left;
+    margin-top: -10px;
+}
+
+.card__rating {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 5px;
+}
+
+.card__rating--star {
+    padding-right: 1px;
+}
+
+.card__price {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-top: 10px;
+}
+
+.card__price--sum {
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.card__btn {
+    display: block;
+    margin-top: 15px;
+    width: 180px;
+    height: 35px;
+    line-height: 35px;
+    background-color: #4aaad7;
+    color: #fff;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: 2px solid #4aaad7;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 14px;
+    letter-spacing: 0.1em;
+}
+
+.card__btn:hover {
+    background: #fff;
+    color: #4aaad7;
+    
+}
