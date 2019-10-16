@@ -1,0 +1,15 @@
+body {
+    font-family: 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+fieldset {
+    margin-bottom: 20px;
+}
+
+input {
+    margin-bottom: 10px;
+}
+
+#age {
+    width: 40px;
+}
