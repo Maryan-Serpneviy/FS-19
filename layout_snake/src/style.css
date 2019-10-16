@@ -1,0 +1,68 @@
+:root {
+    --red: rgb(158, 9, 9);
+}
+
+.block {
+    width: 300px;
+    height: 300px;
+    font-size: 100px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #fff;
+    line-height: 300px;
+    display: flex;
+    text-align: center;
+}
+
+.block span {
+    margin: auto;
+    width: 0;
+}
+
+.block .red, .block-1 {
+    background-color: var(--red);
+}
+
+.block .black {
+    background-color: black;
+}
+
+.block-1::after {
+    content: '1';
+    margin: auto;
+}
+
+.block-2 .red {
+    flex-grow: 4;
+}
+
+.block-2 .black {
+    flex-grow: 1;    
+}
+
+.block-3 .red {
+    flex-grow: 3;
+}
+
+.block-3 .black {
+    flex-grow: 2;
+}
+
+.block-4 .red {
+    flex-grow: 2;
+}
+
+.block-4 .black {
+    flex-grow: 3;
+}
+
+.block-5 .red {
+    flex-grow: 1;
+}
+
+.block-5 .black {
+    flex-grow: 4;
+}
+
+.block-6 .black {
+    flex-grow: 1;
+}
