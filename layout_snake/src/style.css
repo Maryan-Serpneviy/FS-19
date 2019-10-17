@@ -3,7 +3,7 @@
 }
 
 .block {
-    width: 300px;
+    min-width: 300px;
     height: 300px;
     font-size: 100px;
     font-family: Arial, Helvetica, sans-serif;
@@ -65,4 +65,9 @@
 
 .block-6 .black {
     flex-grow: 1;
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
 }
