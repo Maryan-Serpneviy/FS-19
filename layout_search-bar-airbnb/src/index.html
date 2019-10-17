@@ -10,10 +10,14 @@
   <link rel="stylesheet" href="./material-icons/material-icons.css">
 </head>
 <body>
-  <i class="material-icons search__icon search-1__icon">search</i>
-  <input data-qa="big keypress" class="search search-1" type="text" name="search-1" placeholder='Try "Los Angeles"'>
+  <div class="search-wrap search-1-wrap">
+      <img class="search__icon search-1__icon" src="./images/Search.svg" alt="search">
+      <input data-qa="big keypress" class="search search-1" type="text" name="search-1" placeholder='Try "Los Angeles"'>
+  </div>
   <br>
-  <i class="material-icons search__icon search-2__icon">search</i>
-  <input data-qa="small" class="search search-2" type="text" name="search-1" placeholder='Try "Los Angeles"'>
+  <div class="search-wrap search-2-wrap">
+    <img class="search__icon search-2__icon" src="./images/Search.svg" alt="search">
+    <input data-qa="small" class="search search-2" type="text" name="search-1" placeholder="Los Angeles">
+  </div>
 </body>
 </html>
