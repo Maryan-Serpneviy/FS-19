@@ -1,0 +1,50 @@
+@import "utils";
+@import "fonts";
+@import "typography";
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.active {
+  box-shadow: 0px 0px 12px -3px rgba(0,0,0,0.75);
+  transform: scale(1.1);
+  transition: all 0.25s ease;
+}
+
+.gallery {
+  width: $gal-item-width * $gal-items;
+  margin: 0 auto;
+  margin-top: 150px;
+}
+
+#largeImg {
+  width: $gal-item-width * $gal-items;
+  border: $border;
+  padding: 5px;
+}
+
+.gallery__list {
+  list-style: none;
+  display: flex;
+  padding: 0;
+}
+
+.list-item {
+  width: $gal-item-width;
+  height: $gal-item-width - 10px;
+  border: $border;  
+  padding: $gal-item-pd;
+  margin-right: $gal-item-mg;
+  &:hover {
+    box-shadow: 0px 0px 12px -3px rgba(0,0,0,0.75);
+  }
+  &:last-child {
+    margin-right: 0;
+  }
+}
+
+.gallery__img {
+  width: $gal-img-size;
+}
