@@ -4,6 +4,66 @@
 @import "twitter-card";
 @import "carousel-button";
 
+$card-w: 310px;
+$card-h: 160px;
+$carousel-btn-h: 47px;
+$carousel-dot-size: 10px;
+$carousel-dot-mr: $carousel-dot-size * 0.4;
+$carousel-dots-amount: 5;
+$carousel-dot-color: #aaa;
+
 body {
   font-family: Lato, sans-serif;
+}
+
+.carousel {
+  list-style: none;
+  width: 310px;
+  height: 160px;
+  margin: 0 auto;
+  margin-top: 150px;
+  position: relative;
+}
+
+.twitter-card {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.carousel__btn {
+  cursor: pointer;
+  position: absolute;
+  top: $card-h / 2 - $carousel-btn-h / 2;
+}
+
+.carousel__btn_prev {
+  left: -70px;
+}
+
+.carousel__btn_next {
+  left: 332px;
+}
+
+.carousel__dots-wrap {
+  position: relative;
+  z-index: 100;
+  display: flex;
+  top: $card-h + 25px;
+  left: $card-w / 2 - ($carousel-dots-amount * $carousel-dot-size) - ($carousel-dots-amount * $carousel-dot-mr);
+}
+
+.carousel__dot {
+  width: $carousel-dot-size;
+  height: $carousel-dot-size;
+  margin-right: $carousel-dot-mr;
+  background-color: $carousel-dot-color;
+  border-radius: 50%;
+  &_active {
+    background-color: darken($carousel-dot-color, 20%);
+  }
+}
+
+.carousel__dot:last-child {
+  margin-right: 0;
 }
