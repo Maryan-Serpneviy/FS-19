@@ -1,0 +1,39 @@
+.twitter-card {
+  background: #fff;
+  height: 160px;
+  width: 310px;
+  box-sizing: border-box;
+  border-radius: 4px;
+  border: 1px solid #828282;
+  padding: 20px 15px 10px 25px;
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+
+  &__message {
+    height: 80px;
+    font-size: 14px;
+    color: #4f4f4f;
+  }
+
+  &__name {
+    margin-left: 8px;
+    margin-top: 5px;
+    font-size: 16px;
+    font-weight: bold;
+  }
+
+  &__avatar {
+    width: 30px;
+    height: 30px;
+  }
+
+  &__ico {
+    position: absolute;
+    top: 25px;
+    right: 15px;
+    width: 15px;
+    height: 12px;
+    background: url("../images/twitter.png");
+  }
+}
