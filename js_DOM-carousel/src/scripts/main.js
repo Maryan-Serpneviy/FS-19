@@ -5,52 +5,52 @@ const carouselPrev = carouselNode.querySelector('.carousel__btn_prev');
 const carouselNext = carouselNode.querySelector('.carousel__btn_next');
 const carouselDots = carouselNode.querySelectorAll('.carousel__dot');
 
-function Carousel(prev, next, dots) {
-    this.prev = prev;
-    this.next = next;
-    this.dots = dots;
-    this.currIndex = 0;
-}
+class Carousel {
+    constructor(prev, next, dots) {
+        this.prev = prev;
+        this.next = next;
+        this.dots = dots;
+        this.currIndex = 0;
+    }
 
-Carousel.prototype = {
     prevInactive() {
         Array.prototype.forEach.call(carouselDots, dot => {
             dot.classList.remove('carousel__dot_active');
         });
-    },
+    }
     
     hideCurrent() {
         this.prevInactive();
         const curr = document.getElementById(`carousel-item-${this.currIndex}`);
         curr.classList.remove('visible');
-    },
+    }
     
     showNext() {
         const next = document.getElementById(`carousel-item-${this.currIndex}`);
         next.classList.add('visible');
         carouselDots[this.currIndex].classList.add('carousel__dot_active');
-    },
+    }
     
     onDotClick(target) {
         if (target.classList.contains('carousel__dot_active')) { return; }
         this.hideCurrent();
         this.currIndex = target.id.slice(length - 1);
         this.showNext();
-    },
+    }
     
     toggleNext() {
         if (this.currIndex >= carouselDots.length - 1) { return; }
         this.hideCurrent();
         this.currIndex++;
         this.showNext();
-    },
+    }
     
     togglePrev() {
         if (this.currIndex <= 0) { return; }
         this.hideCurrent();
         this.currIndex--;
         this.showNext();
-    },
+    }
 
     defineKey(e) {
         e.preventDefault();
