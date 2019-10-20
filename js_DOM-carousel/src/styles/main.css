@@ -80,6 +80,18 @@ body {
   position: relative;
 }
 
+.carousel__item {
+  opacity: 0;
+  -webkit-transition: opacity 0.8s ease;
+  transition: opacity 0.8s ease;
+}
+
+.visible {
+  opacity: 1;
+  -webkit-transition: opacity 0.8s ease;
+  transition: opacity 0.8s ease;
+}
+
 .twitter-card {
   position: absolute;
   top: 0;

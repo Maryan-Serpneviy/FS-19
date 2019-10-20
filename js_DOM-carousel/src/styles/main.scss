@@ -4,14 +4,6 @@
 @import "twitter-card";
 @import "carousel-button";
 
-$card-w: 310px;
-$card-h: 160px;
-$carousel-btn-h: 47px;
-$carousel-dot-size: 10px;
-$carousel-dot-mr: $carousel-dot-size * 0.4;
-$carousel-dots-amount: 5;
-$carousel-dot-color: #aaa;
-
 body {
   font-family: Lato, sans-serif;
 }
@@ -23,6 +15,16 @@ body {
   margin: 0 auto;
   margin-top: 150px;
   position: relative;
+}
+
+.carousel__item {
+  opacity: 0;
+  transition: opacity $transition ease;
+}
+
+.visible {
+  opacity: 1;
+  transition: opacity $transition ease;
 }
 
 .twitter-card {
