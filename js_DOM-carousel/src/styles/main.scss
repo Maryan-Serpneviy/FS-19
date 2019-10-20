@@ -56,6 +56,7 @@ body {
 }
 
 .carousel__dot {
+  cursor: pointer;
   width: $carousel-dot-size;
   height: $carousel-dot-size;
   margin-right: $carousel-dot-mr;
