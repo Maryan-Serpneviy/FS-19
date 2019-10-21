@@ -31,13 +31,13 @@ const togglePrevPic = () => {
 };
 
 const defineKey = e => {
-    if (e.defaultPrevented) { return; }
-    
-    const PrevKey = new Set(['ArrowLeft', 'ArrowDown', 'a', 'A', 's', 'S', 'ф', 'Ф', 'ы', 'Ы', 'і', 'І']);
-    const NextKey = new Set(['ArrowRight', 'ArrowUp', 'd', 'D', 'w', 'W', 'в', 'В', 'ц', 'Ц']);
+    e.preventDefault();
 
-    if (PrevKey.has(e.key)) { togglePrevPic(); }
-    if (NextKey.has(e.key)) { toggleNextPic(); }
+    const prevKeys = new Set(['ArrowLeft', 'ArrowDown', 'KeyA', 'KeyS']);
+    const nextKeys = new Set(['ArrowRight', 'ArrowUp', 'KeyD', 'KeyW']);
+
+    if (prevKeys.has(e.code)) { togglePrevPic(); }
+    if (nextKeys.has(e.code)) { toggleNextPic(); }
 };
 
 imgContainer.addEventListener('click', e => {
