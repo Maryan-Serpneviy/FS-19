@@ -56,12 +56,12 @@ function Carousel(prev, next, dots) {
 
     this.onKeyPress = e => {
         e.preventDefault();
-        
-        const PrevKey = new Set(['ArrowLeft', 'ArrowDown', 'a', 'A', 's', 'S', 'ф', 'Ф', 'ы', 'Ы', 'і', 'І']);
-        const NextKey = new Set(['ArrowRight', 'ArrowUp', 'd', 'D', 'w', 'W', 'в', 'В', 'ц', 'Ц']);
+
+        const prevKeys = new Set(['ArrowLeft', 'ArrowDown', 'KeyA', 'KeyS']);
+        const nextKeys = new Set(['ArrowRight', 'ArrowUp', 'KeyD', 'KeyW']);        
     
-        if (PrevKey.has(e.key)) { togglePrev(); }
-        if (NextKey.has(e.key)) { toggleNext(); }
+        if (prevKeys.has(e.code)) { togglePrev(); }
+        if (nextKeys.has(e.code)) { toggleNext(); }
     };
 
     this.onScroll = e => {
