@@ -93,6 +93,7 @@ const moveElement = () => {
     };
     document.addEventListener('mousedown', evt => {
         evt.preventDefault();
+        if (!evt.defaultPrevented) { return; }
         let el = document.elementFromPoint(evt.pageX, evt.pageY);
         if (el !== currEl) {
             [InitCoord.x, InitCoord.y] = [0, 0];
@@ -142,4 +143,54 @@ const moveElement = () => {
         document.addEventListener('mouseup', onMouseUp);
     });
 };
-moveElement();
+
+(function() {
+    let currEl = null;
+    let InitCoord = {
+        x: 0,
+        y: 0
+    };
+    document.addEventListener('mousedown', function(evt) {
+        evt.preventDefault();
+        if (!evt.defaultPrevented) { return; }
+        let el = document.elementFromPoint(evt.pageX, evt.pageY);
+        if (el !== currEl) {
+            [InitCoord.x, InitCoord.y] = [0, 0];
+        }
+        currEl = document.elementFromPoint(evt.pageX, evt.pageY);
+        
+        const PageCoord = {
+            x: evt.pageX,
+            y: evt.pageY
+        };
+
+        function onMouseMove(moveEvt) {
+            moveEvt.preventDefault();
+
+            const Shift = {
+                x: moveEvt.pageX - PageCoord.x,
+                y: moveEvt.pageY - PageCoord.y
+            };
+
+            el.style = 
+            `cursor: move;
+            transform: translate(
+                ${InitCoord.x + Shift.x}px,
+                ${InitCoord.y + Shift.y}px
+            )`;
+        }
+    
+        function onMouseUp(upEvt) {
+            upEvt.preventDefault();
+
+            const transformX = Number(el.style.transform.match(/-?\d+/g)[0]);
+            const transformY = Number(el.style.transform.match(/-?\d+/g)[1]);
+            [InitCoord.x, InitCoord.y] = [transformX, transformY];
+
+            document.removeEventListener('mousemove', onMouseMove);
+            document.removeEventListener('mouseup', onMouseUp);
+        }
+        document.addEventListener('mousemove', onMouseMove);
+        document.addEventListener('mouseup', onMouseUp);
+    });
+})();
