@@ -37,7 +37,7 @@ const defineKey = e => {
     const nextKeys = new Set(['ArrowRight', 'ArrowUp', 'KeyD', 'KeyW']);
 
     if (prevKeys.has(e.code)) { togglePrevPic(); }
-    if (nextKeys.has(e.code)) { toggleNextPic(); }
+    if (next.has(e.code)) { toggleNextPic(); }
 };
 
 imgContainer.addEventListener('click', e => {
