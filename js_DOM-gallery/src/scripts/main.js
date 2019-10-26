@@ -4,55 +4,63 @@ const gallery = document.querySelector('.gallery');
 const imgContainer = gallery.querySelector('.gallery__list')
 const largeImg = gallery.querySelector('#largeImg');
 
-let currIndex = 0;
+class Gallery {
+    constructor() {
+        this.currIndex = 0;
+    }
 
-const prevInactive = () => {
-    Array.prototype.forEach.call(imgContainer.children, li => {
-        li.classList.remove('active');
-    });
-};
+    prevInactive() {
+        Array.prototype.forEach.call(imgContainer.children, li => {
+            li.classList.remove('active');
+        });
+    }
+    
+    toggleNextPic() {
+        if (this.currIndex >= imgContainer.children.length - 1) { return; }
+        this.prevInactive();
+        this.currIndex++;
+        const next = imgContainer.children[this.currIndex].querySelector('.gallery__img').src;
+        imgContainer.children[this.currIndex].classList.add('active');
+        largeImg.src = next.replace('jpeg', 'png').replace('-thumb', '');
+    }
+    
+    togglePrevPic() {
+        if (this.currIndex <= 0) { return; }
+        this.prevInactive();
+        const prev = imgContainer.children[this.currIndex - 1].querySelector('.gallery__img').src;
+        imgContainer.children[this.currIndex - 1].classList.add('active');
+        largeImg.src = prev.replace('jpeg', 'png').replace('-thumb', '');
+        this.currIndex--;
+    }
 
-const toggleNextPic = () => {
-    if (currIndex >= imgContainer.children.length - 1) { return; }
-    prevInactive();
-    currIndex++;
-    const next = imgContainer.children[currIndex].querySelector('.gallery__img').src;
-    imgContainer.children[currIndex].classList.add('active');
-    largeImg.src = next.replace('jpeg', 'png').replace('-thumb', '');
-};
+    onClickHandler(e) {
+        if (!e.target.classList.contains('gallery__img')) { return; }
+        e.preventDefault();
 
-const togglePrevPic = () => {
-    if (currIndex <= 0) { return; }
-    prevInactive();
-    const prev = imgContainer.children[currIndex - 1].querySelector('.gallery__img').src;
-    imgContainer.children[currIndex - 1].classList.add('active');
-    largeImg.src = prev.replace('jpeg', 'png').replace('-thumb', '');
-    currIndex--;
-};
+        this.currIndex =  e.target.parentNode.parentNode.id.slice(length - 1);
 
-const defineKey = e => {
-    e.preventDefault();
+        this.prevInactive();
+        e.target.parentNode.parentNode.classList.add('active');
+        largeImg.src = e.target.src.replace('jpeg', 'png').replace('-thumb', '');
+    }
+    
+    onKeyPress(e) {
+        e.preventDefault();
+    
+        const prevKeys = new Set(['ArrowLeft', 'ArrowDown', 'KeyA', 'KeyS']);
+        const nextKeys = new Set(['ArrowRight', 'ArrowUp', 'KeyD', 'KeyW']);
+        
+        if (prevKeys.has(e.code)) { this.togglePrevPic(); }
+        if (nextKeys.has(e.code)) { this.toggleNextPic(); }
+    };
 
-    const prevKeys = new Set(['ArrowLeft', 'ArrowDown', 'KeyA', 'KeyS']);
-    const nextKeys = new Set(['ArrowRight', 'ArrowUp', 'KeyD', 'KeyW']);
+    onScroll(e) {
+        e.deltaY > 0 ? this.toggleNextPic() : this.togglePrevPic();
+    }
+}
 
-    if (prevKeys.has(e.code)) { togglePrevPic(); }
-    if (next.has(e.code)) { toggleNextPic(); }
-};
+const dayCycle = new Gallery();
 
-imgContainer.addEventListener('click', e => {
-    if (!e.target.classList.contains('gallery__img')) { return; }
-    e.preventDefault();
-
-    currIndex =  e.target.parentNode.parentNode.id.slice(length - 1);
-
-    prevInactive();
-    e.target.parentNode.parentNode.classList.add('active');
-    largeImg.src = e.target.src.replace('jpeg', 'png').replace('-thumb', '');
-});
-
-document.addEventListener('keydown', defineKey);
-
-document.addEventListener('wheel', function(e) {
-    e.deltaY > 0 ? toggleNextPic() : togglePrevPic();
-});
+imgContainer.addEventListener('click', e => dayCycle.onClickHandler(e));
+document.addEventListener('keydown', e => dayCycle.onKeyPress(e));
+document.addEventListener('wheel', e => dayCycle.onScroll(e));
