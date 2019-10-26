@@ -5,72 +5,74 @@ const carouselPrev = carousel.querySelector('.carousel__btn_prev');
 const carouselNext = carousel.querySelector('.carousel__btn_next');
 const carouselDots = carousel.querySelectorAll('.carousel__dot');
 
-function Carousel(prev, next, dots) {
-    this.prev = prev;
-    this.next = next;
-    this.dots = dots;
-    let currIndex = 0;
+class Carousel {
+    constructor(prev, next, dots) {
+        this.prev = prev;
+        this.next = next;
+        this.dots = dots;
+        this.currIndex = 0;
+    }
 
-    const hideCurrent = () => {
-        Array.prototype.forEach.call(dots, dot => {
+    hideCurrent() {
+        Array.prototype.forEach.call(this.dots, dot => {
             dot.classList.remove('carousel__dot_active');
         });
-        const curr = document.getElementById(`carousel-item-${currIndex}`);
+        const curr = document.getElementById(`carousel-item-${this.currIndex}`);
         curr.classList.remove('visible');
-    };
+    }
     
-    const showNext = () => {
-        const next = document.getElementById(`carousel-item-${currIndex}`);
+    showNext() {
+        const next = document.getElementById(`carousel-item-${this.currIndex}`);
         next.classList.add('visible');
-        dots[currIndex].classList.add('carousel__dot_active');
-    };
+        this.dots[this.currIndex].classList.add('carousel__dot_active');
+    }
 
-    const toggleNext = () => {
-        if (currIndex >= dots.length - 1) { return; }
-        hideCurrent();
-        currIndex++;
-        showNext();
-    };
+    toggleNext() {
+        if (this.currIndex >= this.dots.length - 1) { return; }
+        this.hideCurrent();
+        this.currIndex++;
+        this.showNext();
+    }
     
-    const togglePrev = () => {
-        if (currIndex <= 0) { return; }
-        hideCurrent();
-        currIndex--;
-        showNext();
-    };
+    togglePrev() {
+        if (this.currIndex <= 0) { return; }
+        this.hideCurrent();
+        this.currIndex--;
+        this.showNext();
+    }
     
-    const onDotClick = target => {
+    onDotClick(target) {
         if (target.classList.contains('carousel__dot_active')) { return; }
-        hideCurrent();
-        currIndex = target.id.slice(length - 1);
-        showNext();
-    };
+        this.hideCurrent();
+        this.currIndex = target.id.slice(length - 1);
+        this.showNext();
+    }
 
-    this.onClickHandler = e => {
-        if (e.target === prev) { togglePrev(); }
-        if (e.target === next) { toggleNext() }
+    onClickHandler(e) {
+        if (e.target === this.prev) { this.togglePrev(); }
+        if (e.target === this.next) { this.toggleNext() }
         if (e.target.classList.contains('carousel__dot')) {
-            onDotClick(e.target);
+            this.onDotClick(e.target);
         }
     };
 
-    this.onKeyPress = e => {
+    onKeyPress(e) {
         e.preventDefault();
 
         const prevKeys = new Set(['ArrowLeft', 'ArrowDown', 'KeyA', 'KeyS']);
         const nextKeys = new Set(['ArrowRight', 'ArrowUp', 'KeyD', 'KeyW']);        
     
-        if (prevKeys.has(e.code)) { togglePrev(); }
-        if (nextKeys.has(e.code)) { toggleNext(); }
+        if (prevKeys.has(e.code)) { this.togglePrev(); }
+        if (nextKeys.has(e.code)) { this.toggleNext(); }
     };
 
-    this.onScroll = e => {
-        e.deltaY > 0 ? toggleNext() : togglePrev();
+    onScroll(e) {
+        e.deltaY > 0 ? this.toggleNext() : this.togglePrev();
     };
 }
 
 const twitterCards = new Carousel(carouselPrev, carouselNext, carouselDots);
 
-carousel.addEventListener('click', twitterCards.onClickHandler)
-document.addEventListener('keydown', twitterCards.onKeyPress);
-document.addEventListener('wheel', twitterCards.onScroll);
+carousel.addEventListener('click', e => twitterCards.onClickHandler(e));
+document.addEventListener('keydown', e => twitterCards.onKeyPress(e));
+document.addEventListener('wheel', e => twitterCards.onScroll(e));
