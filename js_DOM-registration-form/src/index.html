@@ -12,13 +12,27 @@
         <legend>Registration form</legend>
         <input id="name" class="nostate" type="text" name="name" autocomplete="off" placeholder="Full name" required>
         <br>
-        <input id="phone" class="nostate" type="tel" name="tel" autocomplete="off" placeholder="Phone number" required>
-        <select>
-
+        <input id="private" type="checkbox">
+        <label for="private">
+            I would prefer not to specify my phone number
+        </label>
+        <input id="phone" class="nostate" type="tel" name="tel" autocomplete="off" placeholder="+38 012 345-67-89">
+        <select id="region" class="nostate" name="region" required>
+          <option>Choose region</option>
+          <option>Kyiv</option>
+          <option>West</option>
+          <option>North</option>
+          <option>Center</option>
+          <option>South</option>
+          <option>East</option>
         </select>
-        <select></select>
+        <select id="city" class="nostate hidden" name="region" required>
+          <!-- dynamic content -->
+        </select>
+        <br>
+        <button id="submit" name="submit" type="submit">Submit</button>
       </fieldset>
     </form>
-    <script type="text/javascript" src="scripts/main.js"></script>
+    <script type="module" src="scripts/main.js"></script>
   </body>
 </html>

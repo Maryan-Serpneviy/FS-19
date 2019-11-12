@@ -5,13 +5,17 @@
 // SUCCESS: '#28a745',
 // WARNING: '#ffc107',
 // DANGER: '#dc3545'
-$form-w: 500px;
-$input-w: $form-w / 2;
-$border-w: 5px;
+
+$input-w: 235px;
+$submit-w: $input-w / 2;
+
+.hidden {
+  display: none;
+}
 
 body {
   background: rgb(183, 253, 183);
-  font-family: 'Lucida Sans', Geneva, Verdana, sans-serif;
+  font-family: 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   font-size: 0.95em;
   padding: 0;
   margin: 0;
@@ -19,19 +23,19 @@ body {
 }
 
 #registration-form {
-  width: $form-w;
+  width: 500px;
   min-height: 100vh;
   margin: 0 auto;
   background: url('../images/palms.jpg') no-repeat;
   background-size: cover;
   position: relative;
-  input {
-    margin-left: $form-w / 7;
-    margin-bottom: 25px;
+  input[type=text], input[type=tel], select {
+    width: $input-w;
+    margin-left: 104px;
+    margin-bottom: 35px;
     padding: 10px;
     border-radius: 10px;
-    width: $input-w;
-    border-width: $border-w;
+    border-width: 5px;
     border-style: solid;
     font-size: 1.05em;
     &:focus {
@@ -41,6 +45,51 @@ body {
       }
     }
   }
+  input[type=checkbox], label {
+    color: #fff;
+    font-size: 0.7em;
+    position: absolute;
+    margin-left: 104px;
+    top: 145px;
+  }
+  label {
+    left: 33px;
+    top: 148px;
+  }
+  #submit {
+    width: $submit-w;
+    margin-left: 177px;
+    padding: 10px;
+    border-radius: 10px;
+    font-size: 1.1em;
+    background: #fff;
+    border: 5px solid gray;
+    &:focus, &:active {
+      outline: none;
+      position: relative;
+      top: 1px;
+      left: 1px;
+    }
+  }
+}
+
+select {
+  width: 265px !important;
+}
+
+option:checked {
+  background: gray;
+  color: #fff;
+}
+
+option:first-child, #city option:last-child {
+  font-style: italic;
+  font-size: 0.85em;
+}
+
+input[type=checkbox] {
+  width: 17px;
+  height: 17px;
 }
 
 .bg-mask {
@@ -54,14 +103,12 @@ fieldset {
   border: none;
   position: absolute;
   top: 0;
-  
   z-index: 10;
   legend {
-    text-align: center;
     color: #fff;
     font-weight: bold;
     font-size: 30px;
-    padding: 20px 0;
+    padding: 20px 104px;
   }
 }
 
@@ -70,9 +117,14 @@ fieldset {
 }
 
 .valid {
-  border-color: #28a745 !important;
+  border-color: #28a745;
 }
 
 .invalid {
   border-color: #dc3545;
+}
+
+.disabled {
+  border-color: rgb(100, 100, 100);
+  background-color: lightgray;
 }

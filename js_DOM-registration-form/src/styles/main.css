@@ -10,9 +10,13 @@ h1 {
   font-style: normal;
 }
 
+.hidden {
+  display: none;
+}
+
 body {
   background: #b7fdb7;
-  font-family: 'Lucida Sans', Geneva, Verdana, sans-serif;
+  font-family: 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   font-size: 0.95em;
   padding: 0;
   margin: 0;
@@ -29,35 +33,84 @@ body {
   position: relative;
 }
 
-#registration-form input {
-  margin-left: 71.42857px;
-  margin-bottom: 25px;
+#registration-form input[type=text], #registration-form input[type=tel], #registration-form select {
+  width: 235px;
+  margin-left: 104px;
+  margin-bottom: 35px;
   padding: 10px;
   border-radius: 10px;
-  width: 250px;
   border-width: 5px;
   border-style: solid;
   font-size: 1.05em;
 }
 
-#registration-form input:focus {
+#registration-form input[type=text]:focus, #registration-form input[type=tel]:focus, #registration-form select:focus {
   outline: none;
 }
 
-#registration-form input:focus::-webkit-input-placeholder {
+#registration-form input[type=text]:focus::-webkit-input-placeholder, #registration-form input[type=tel]:focus::-webkit-input-placeholder, #registration-form select:focus::-webkit-input-placeholder {
   color: #fff;
 }
 
-#registration-form input:focus:-ms-input-placeholder {
+#registration-form input[type=text]:focus:-ms-input-placeholder, #registration-form input[type=tel]:focus:-ms-input-placeholder, #registration-form select:focus:-ms-input-placeholder {
   color: #fff;
 }
 
-#registration-form input:focus::-ms-input-placeholder {
+#registration-form input[type=text]:focus::-ms-input-placeholder, #registration-form input[type=tel]:focus::-ms-input-placeholder, #registration-form select:focus::-ms-input-placeholder {
   color: #fff;
 }
 
-#registration-form input:focus::placeholder {
+#registration-form input[type=text]:focus::placeholder, #registration-form input[type=tel]:focus::placeholder, #registration-form select:focus::placeholder {
   color: #fff;
+}
+
+#registration-form input[type=checkbox], #registration-form label {
+  color: #fff;
+  font-size: 0.7em;
+  position: absolute;
+  margin-left: 104px;
+  top: 145px;
+}
+
+#registration-form label {
+  left: 33px;
+  top: 148px;
+}
+
+#registration-form #submit {
+  width: 117.5px;
+  margin-left: 177px;
+  padding: 10px;
+  border-radius: 10px;
+  font-size: 1.1em;
+  background: #fff;
+  border: 5px solid gray;
+}
+
+#registration-form #submit:focus, #registration-form #submit:active {
+  outline: none;
+  position: relative;
+  top: 1px;
+  left: 1px;
+}
+
+select {
+  width: 265px !important;
+}
+
+option:checked {
+  background: gray;
+  color: #fff;
+}
+
+option:first-child, #city option:last-child {
+  font-style: italic;
+  font-size: 0.85em;
+}
+
+input[type=checkbox] {
+  width: 17px;
+  height: 17px;
 }
 
 .bg-mask {
@@ -75,11 +128,10 @@ fieldset {
 }
 
 fieldset legend {
-  text-align: center;
   color: #fff;
   font-weight: bold;
   font-size: 30px;
-  padding: 20px 0;
+  padding: 20px 104px;
 }
 
 .nostate {
@@ -87,10 +139,15 @@ fieldset legend {
 }
 
 .valid {
-  border-color: #28a745 !important;
+  border-color: #28a745;
 }
 
 .invalid {
   border-color: #dc3545;
+}
+
+.disabled {
+  border-color: #646464;
+  background-color: lightgray;
 }
 /*# sourceMappingURL=main.css.map */
