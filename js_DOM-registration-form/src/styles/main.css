@@ -33,7 +33,7 @@ body {
   position: relative;
 }
 
-#registration-form input[type=text], #registration-form input[type=tel], #registration-form select {
+input[type=text], input[type=tel], select {
   width: 235px;
   margin-left: 104px;
   margin-bottom: 35px;
@@ -44,27 +44,27 @@ body {
   font-size: 1.05em;
 }
 
-#registration-form input[type=text]:focus, #registration-form input[type=tel]:focus, #registration-form select:focus {
+input[type=text]:focus, input[type=tel]:focus, select:focus {
   outline: none;
 }
 
-#registration-form input[type=text]:focus::-webkit-input-placeholder, #registration-form input[type=tel]:focus::-webkit-input-placeholder, #registration-form select:focus::-webkit-input-placeholder {
+input[type=text]:focus::-webkit-input-placeholder, input[type=tel]:focus::-webkit-input-placeholder, select:focus::-webkit-input-placeholder {
   color: #fff;
 }
 
-#registration-form input[type=text]:focus:-ms-input-placeholder, #registration-form input[type=tel]:focus:-ms-input-placeholder, #registration-form select:focus:-ms-input-placeholder {
+input[type=text]:focus:-ms-input-placeholder, input[type=tel]:focus:-ms-input-placeholder, select:focus:-ms-input-placeholder {
   color: #fff;
 }
 
-#registration-form input[type=text]:focus::-ms-input-placeholder, #registration-form input[type=tel]:focus::-ms-input-placeholder, #registration-form select:focus::-ms-input-placeholder {
+input[type=text]:focus::-ms-input-placeholder, input[type=tel]:focus::-ms-input-placeholder, select:focus::-ms-input-placeholder {
   color: #fff;
 }
 
-#registration-form input[type=text]:focus::placeholder, #registration-form input[type=tel]:focus::placeholder, #registration-form select:focus::placeholder {
+input[type=text]:focus::placeholder, input[type=tel]:focus::placeholder, select:focus::placeholder {
   color: #fff;
 }
 
-#registration-form input[type=checkbox], #registration-form label {
+input[type=checkbox], label {
   color: #fff;
   font-size: 0.7em;
   position: absolute;
@@ -72,12 +72,12 @@ body {
   top: 145px;
 }
 
-#registration-form label {
+label {
   left: 33px;
   top: 148px;
 }
 
-#registration-form #submit {
+#submit {
   width: 117.5px;
   margin-left: 177px;
   padding: 10px;
@@ -87,7 +87,7 @@ body {
   border: 5px solid gray;
 }
 
-#registration-form #submit:focus, #registration-form #submit:active {
+#submit:focus, #submit:active {
   outline: none;
   position: relative;
   top: 1px;
@@ -97,7 +97,7 @@ body {
 }
 
 select {
-  width: 265px !important;
+  width: 265px;
 }
 
 option:checked {
@@ -129,7 +129,7 @@ fieldset {
   z-index: 10;
 }
 
-fieldset legend {
+legend {
   color: #fff;
   font-weight: bold;
   font-size: 30px;
@@ -151,5 +151,46 @@ fieldset legend {
 .disabled {
   border-color: #646464;
   background-color: lightgray;
+}
+
+@media screen and (max-width: 980px) {
+  legend {
+    font-size: 4.5em;
+    padding-left: 175px;
+  }
+  input[type=text], input[type=tel], select {
+    width: 520px;
+    margin-left: 180px;
+    margin-bottom: 70px;
+    padding: 30px;
+    border-radius: 20px;
+    border-width: 10px;
+    font-size: 45px;
+  }
+  input[type=checkbox], label {
+    font-size: 0.7em;
+    margin-left: 175px;
+    top: 300px;
+  }
+  input[type=checkbox] {
+    width: 34px;
+    height: 34px;
+  }
+  select {
+    width: 600px;
+  }
+  label {
+    left: 50px;
+    top: 303px;
+    font-size: 25px;
+  }
+  #submit {
+    width: 293.75px;
+    margin-left: 330px;
+    padding: 25px;
+    border-width: 10px;
+    border-radius: 20px;
+    font-size: 3.1em;
+  }
 }
 /*# sourceMappingURL=main.css.map */

@@ -8,6 +8,7 @@
 
 $input-w: 235px;
 $submit-w: $input-w / 2;
+$checkbox-size: 17px;
 
 .hidden {
   display: none;
@@ -29,53 +30,57 @@ body {
   background: url('../images/palms.jpg') no-repeat;
   background-size: cover;
   position: relative;
-  input[type=text], input[type=tel], select {
-    width: $input-w;
-    margin-left: 104px;
-    margin-bottom: 35px;
-    padding: 10px;
-    border-radius: 10px;
-    border-width: 5px;
-    border-style: solid;
-    font-size: 1.05em;
-    &:focus {
-      outline: none;
-      &::placeholder {
-        color: #fff;  
-      }
-    }
-  }
-  input[type=checkbox], label {
-    color: #fff;
-    font-size: 0.7em;
-    position: absolute;
-    margin-left: 104px;
-    top: 145px;
-  }
-  label {
-    left: 33px;
-    top: 148px;
-  }
-  #submit {
-    width: $submit-w;
-    margin-left: 177px;
-    padding: 10px;
-    border-radius: 10px;
-    font-size: 1.1em;
-    background: #fff;
-    border: 5px solid gray;
-    &:focus, &:active {
-      outline: none;
-      position: relative;
-      top: 1px;
-      left: 1px;
-      transform: scale(0.9);
+}
+
+input[type=text], input[type=tel], select {
+  width: $input-w;
+  margin-left: 104px;
+  margin-bottom: 35px;
+  padding: 10px;
+  border-radius: 10px;
+  border-width: 5px;
+  border-style: solid;
+  font-size: 1.05em;
+  &:focus {
+    outline: none;
+    &::placeholder {
+      color: #fff;  
     }
   }
 }
 
+input[type=checkbox], label {
+  color: #fff;
+  font-size: 0.7em;
+  position: absolute;
+  margin-left: 104px;
+  top: 145px;
+}
+
+label {
+  left: 33px;
+  top: 148px;
+}
+
+#submit {
+  width: $submit-w;
+  margin-left: 177px;
+  padding: 10px;
+  border-radius: 10px;
+  font-size: 1.1em;
+  background: #fff;
+  border: 5px solid gray;
+  &:focus, &:active {
+    outline: none;
+    position: relative;
+    top: 1px;
+    left: 1px;
+    transform: scale(0.9);
+  }
+}
+
 select {
-  width: 265px !important;
+  width: 265px;
 }
 
 option:checked {
@@ -89,8 +94,8 @@ option:first-child, #city option:last-child {
 }
 
 input[type=checkbox] {
-  width: 17px;
-  height: 17px;
+  width: $checkbox-size;
+  height: $checkbox-size;
 }
 
 .bg-mask {
@@ -105,12 +110,13 @@ fieldset {
   position: absolute;
   top: 0;
   z-index: 10;
-  legend {
-    color: #fff;
-    font-weight: bold;
-    font-size: 30px;
-    padding: 20px 104px;
-  }
+}
+
+legend {
+  color: #fff;
+  font-weight: bold;
+  font-size: 30px;
+  padding: 20px 104px;
 }
 
 .nostate {
@@ -128,4 +134,51 @@ fieldset {
 .disabled {
   border-color: rgb(100, 100, 100);
   background-color: lightgray;
+}
+
+@media screen and (max-width: 980px) {
+  legend {
+    font-size: 4.5em;
+    padding-left: 175px;
+  }
+
+  input[type=text], input[type=tel], select {
+    width: 520px;
+    margin-left: 180px;
+    margin-bottom: 70px;
+    padding: 30px;
+    border-radius: 20px;
+    border-width: 10px;
+    font-size: 45px;
+  }
+
+  input[type=checkbox], label {
+    font-size: 0.7em;
+    margin-left: 175px;
+    top: 300px;
+  }
+
+  input[type=checkbox] {
+    width: $checkbox-size * 2;
+    height: $checkbox-size * 2;
+  }
+
+  select {
+    width: 600px;
+  }
+
+  label {
+    left: 50px;
+    top: 303px;
+    font-size: 25px;
+  }
+
+  #submit {
+    width: $submit-w * 2.5;;
+    margin-left: 330px;
+    padding: 25px;
+    border-width: 10px;
+    border-radius: 20px;
+    font-size: 3.1em;
+  }
 }
