@@ -92,6 +92,8 @@ body {
   position: relative;
   top: 1px;
   left: 1px;
+  -webkit-transform: scale(0.9);
+          transform: scale(0.9);
 }
 
 select {
