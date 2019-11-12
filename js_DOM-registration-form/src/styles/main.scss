@@ -137,14 +137,21 @@ legend {
 }
 
 @media screen and (max-width: 980px) {
+  #registration-form {
+    position: relative;
+  }
+
   legend {
     font-size: 4.5em;
-    padding-left: 175px;
+    padding-left: 225px;
+    // position: absolute;
+    // left: 50%;
+    // transform: translate(-50%, -50%);
   }
 
   input[type=text], input[type=tel], select {
     width: 520px;
-    margin-left: 180px;
+    margin-left: 230px;
     margin-bottom: 70px;
     padding: 30px;
     border-radius: 20px;
@@ -154,8 +161,8 @@ legend {
 
   input[type=checkbox], label {
     font-size: 0.7em;
-    margin-left: 175px;
-    top: 300px;
+    margin-left: 225px;
+    top: 275px;
   }
 
   input[type=checkbox] {
@@ -169,7 +176,7 @@ legend {
 
   label {
     left: 50px;
-    top: 303px;
+    top: 278px;
     font-size: 25px;
   }
 
@@ -177,7 +184,7 @@ legend {
     width: $submit-w * 2.5;;
     margin-left: 330px;
     padding: 25px;
-    border-width: 10px;
+    border-width: 15px;
     border-radius: 20px;
     font-size: 3.1em;
   }
