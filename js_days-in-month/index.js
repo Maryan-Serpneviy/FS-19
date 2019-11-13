@@ -2,7 +2,7 @@ function daysInMonth(month, year) {
     try {
         Number.isInteger(month);
         Number.isInteger(year);
-        month > 11;
+        month < 11;
     } catch (e) {
         throw new Error('Not an integer');
     } 
