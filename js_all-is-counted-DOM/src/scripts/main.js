@@ -1,17 +1,15 @@
 'use strict';
 
+const counter = document.querySelector('.counter');
 let clicked = 0;
 
-const counter = document.querySelector('.counter');
-
-window.addEventListener('DOMContentLoaded', () => {
-    counter.textContent = sessionStorage.getItem('counter');
+document.addEventListener('DOMContentLoaded', () => {
     clicked = sessionStorage.getItem('counter');
+    counter.textContent = clicked;
 });
 
 document.addEventListener('click', () => {
     clicked++;
     counter.textContent = clicked;
-    console.log(clicked);
     sessionStorage.setItem('counter', clicked);
 });
