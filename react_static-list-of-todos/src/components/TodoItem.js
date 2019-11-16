@@ -4,7 +4,6 @@ import User from './User'
 import users from '../api/users'
 
 export default function TodoItem(props) {
-    console.log(props)
     return (
         <div class="todo">
             {/* task */}
