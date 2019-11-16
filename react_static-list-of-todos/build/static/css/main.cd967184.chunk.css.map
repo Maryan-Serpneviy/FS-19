@@ -1,0 +1,1 @@
+{"version":3,"sources":["App.css"],"names":[],"mappings":"AAAA,KACE,uFACF,CAEA,KACE,iBACF","file":"main.cd967184.chunk.css","sourcesContent":["body {\n  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;\n}\n\n.App {\n  text-align: center;\n}\n"]}
