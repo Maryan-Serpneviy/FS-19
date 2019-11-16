@@ -1,11 +1,20 @@
 import React from 'react'
 
+import User from './User'
+import users from '../api/users'
+
 export default function TodoItem(props) {
     console.log(props)
     return (
-        <div style={{ display: "flex", backgroundColor: "#eee" }}>
-            <p style={{ flexGrow: 1 }}>User id: {props.userId}</p>
-            <h3 style={{ flexGrow: 4 }}>{props.title}</h3>
+        <div class="todo">
+            {/* task */}
+            <h3>{props.task}</h3>
+            {/* user */}
+            {users.filter(user => props.userId === user.id)
+                .map(user => (
+                    <User key={user.id} name={user.name} username={user.username} email={user.email} />
+                ))
+            }
         </div>
     )
 }
