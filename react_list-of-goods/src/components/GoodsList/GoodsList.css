@@ -1,0 +1,28 @@
+.goods-list {
+    text-align: center;
+}
+
+.goods-list__list {
+    list-style: none;
+}
+
+.goods-list__list-item {
+    color: rgb(9, 136, 127);
+    font-weight: bold;
+    margin-left: -55px;
+}
+
+select {
+    border: 2px solid rgb(9, 136, 127);
+    background: rgb(226, 255, 253);
+    color: rgb(9, 136, 127);
+    border-radius: 10px;
+    width: 75px;
+    padding: 5px;
+    text-align: center;
+    font-weight: bold;
+}
+
+select:focus {
+    outline: none;
+}
