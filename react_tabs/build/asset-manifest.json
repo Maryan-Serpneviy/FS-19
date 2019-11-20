@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/fs-19/react_tabs/static/css/main.b39af6e2.chunk.css",
+    "main.js": "/fs-19/react_tabs/static/js/main.00fa74fd.chunk.js",
+    "main.js.map": "/fs-19/react_tabs/static/js/main.00fa74fd.chunk.js.map",
+    "runtime~main.js": "/fs-19/react_tabs/static/js/runtime~main.f3b1dd02.js",
+    "runtime~main.js.map": "/fs-19/react_tabs/static/js/runtime~main.f3b1dd02.js.map",
+    "static/js/2.6ad9597c.chunk.js": "/fs-19/react_tabs/static/js/2.6ad9597c.chunk.js",
+    "static/js/2.6ad9597c.chunk.js.map": "/fs-19/react_tabs/static/js/2.6ad9597c.chunk.js.map",
+    "index.html": "/fs-19/react_tabs/index.html",
+    "precache-manifest.5b356a121433e0accd6a89243af26da8.js": "/fs-19/react_tabs/precache-manifest.5b356a121433e0accd6a89243af26da8.js",
+    "service-worker.js": "/fs-19/react_tabs/service-worker.js",
+    "static/css/main.b39af6e2.chunk.css.map": "/fs-19/react_tabs/static/css/main.b39af6e2.chunk.css.map"
+  }
+}
