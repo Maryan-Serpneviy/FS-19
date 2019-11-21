@@ -1,17 +1,13 @@
 'use strict';
 
-const carousel = document.querySelector('.carousel');
-const carouselPrev = carousel.querySelector('.carousel__btn_prev');
-const carouselNext = carousel.querySelector('.carousel__btn_next');
-const carouselDots = carousel.querySelectorAll('.carousel__dot');
-
 class Carousel {
     constructor(prev, next, dots) {
         this.prev = prev;
         this.next = next;
         this.dots = dots;
-        this.currIndex = 0;
     }
+
+    currIndex = 0;
 
     hideCurrent() {
         Array.prototype.forEach.call(this.dots, dot => {
@@ -28,21 +24,21 @@ class Carousel {
     }
 
     toggleNext() {
-        if (this.currIndex >= this.dots.length - 1) { return; }
+        if (this.currIndex >= this.dots.length - 1) { return }
         this.hideCurrent();
         this.currIndex++;
         this.showNext();
     }
     
     togglePrev() {
-        if (this.currIndex <= 0) { return; }
+        if (this.currIndex <= 0) { return }
         this.hideCurrent();
         this.currIndex--;
         this.showNext();
     }
     
     onDotClick(target) {
-        if (target.classList.contains('carousel__dot_active')) { return; }
+        if (target.classList.contains('carousel__dot_active')) { return }
         this.hideCurrent();
         this.currIndex = target.id.slice(length - 1);
         this.showNext();
@@ -62,14 +58,19 @@ class Carousel {
         const prevKeys = new Set(['ArrowLeft', 'ArrowDown', 'KeyA', 'KeyS']);
         const nextKeys = new Set(['ArrowRight', 'ArrowUp', 'KeyD', 'KeyW']);        
     
-        if (prevKeys.has(e.code)) { this.togglePrev(); }
-        if (nextKeys.has(e.code)) { this.toggleNext(); }
+        if (prevKeys.has(e.code)) { this.togglePrev() }
+        if (nextKeys.has(e.code)) { this.toggleNext() }
     };
 
     onScroll(e) {
         e.deltaY > 0 ? this.toggleNext() : this.togglePrev();
     };
 }
+
+const carousel = document.querySelector('.carousel');
+const carouselPrev = carousel.querySelector('.carousel__btn_prev');
+const carouselNext = carousel.querySelector('.carousel__btn_next');
+const carouselDots = carousel.querySelectorAll('.carousel__dot');
 
 const twitterCards = new Carousel(carouselPrev, carouselNext, carouselDots);
 
