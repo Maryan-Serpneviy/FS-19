@@ -1,5 +1,5 @@
 import Const from './constants.js';
-import { Region } from './region.js';
+import Region from './region.js';
 
 export default class Form {
     constructor(form, name, phone, region, city, anonymous, submit) {
@@ -10,11 +10,12 @@ export default class Form {
         this.city = city;
         this.anonymous = anonymous;
         this.submit = submit;
-        this.validName = false;
-        this.validPhone = false;
-        this.regionSelected = false;
-        this.citySelected = false;
     }
+    // validation flags
+    validName = false;
+    validPhone = false;
+    regionSelected = false;
+    citySelected = false;
 
     validateName() {
         const nameParts = this.name.value.trim().split(' ')
@@ -35,7 +36,8 @@ export default class Form {
     }
 
     validatePhone() {
-        if (this.phone.value.match(Const.RegExp.phone)) {
+        if (this.phone.value.match(Const.RegExp.phone) &&
+            this.phone.value.length < Const.MAX_DIGITS) {
             this.validPhone = true;
             this.phone.className = 'valid';
         } else {
@@ -46,7 +48,7 @@ export default class Form {
 
     focusPhone() {
         if (!this.phone.value) {
-            this.phone.value = '+380 ';
+            this.phone.value = '+380';
         }
         this.validPhone ? this.phone.className = 'valid' : this.phone.className = 'invalid';
     }

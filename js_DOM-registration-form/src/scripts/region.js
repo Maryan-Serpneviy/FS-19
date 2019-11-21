@@ -1,4 +1,4 @@
-export const Region = {
+const Region = {
     West: `
         <option>Choose city</option>
         <option>Lviv</option>
@@ -38,3 +38,5 @@ export const Region = {
         <option>Lugansk</option>
         <option>Not in the list</option>`
 };
+
+export default Region;
