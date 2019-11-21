@@ -1,47 +1,46 @@
 'use strict';
 
-const gallery = document.querySelector('.gallery');
-const imgContainer = gallery.querySelector('.gallery__list')
-const largeImg = gallery.querySelector('#largeImg');
-
 class Gallery {
-    constructor() {
-        this.currIndex = 0;
+    constructor(container, bigImage) {
+        this.container = container;
+        this.bigImage = bigImage;
     }
 
+    currIndex = 0;
+
     prevInactive() {
-        Array.prototype.forEach.call(imgContainer.children, li => {
+        Array.prototype.forEach.call(this.container.children, li => {
             li.classList.remove('active');
         });
     }
     
     toggleNextPic() {
-        if (this.currIndex >= imgContainer.children.length - 1) { return; }
+        if (this.currIndex >= this.container.children.length - 1) { return }
         this.prevInactive();
         this.currIndex++;
-        const next = imgContainer.children[this.currIndex].querySelector('.gallery__img').src;
-        imgContainer.children[this.currIndex].classList.add('active');
-        largeImg.src = next.replace('jpeg', 'png').replace('-thumb', '');
+        const next = this.container.children[this.currIndex].querySelector('.gallery__img').src;
+        this.container.children[this.currIndex].classList.add('active');
+        this.bigImage.src = next.replace('jpeg', 'png').replace('-thumb', '');
     }
     
     togglePrevPic() {
-        if (this.currIndex <= 0) { return; }
+        if (this.currIndex <= 0) { return }
         this.prevInactive();
-        const prev = imgContainer.children[this.currIndex - 1].querySelector('.gallery__img').src;
-        imgContainer.children[this.currIndex - 1].classList.add('active');
-        largeImg.src = prev.replace('jpeg', 'png').replace('-thumb', '');
+        const prev = this.container.children[this.currIndex - 1].querySelector('.gallery__img').src;
+        this.container.children[this.currIndex - 1].classList.add('active');
+        this.bigImage.src = prev.replace('jpeg', 'png').replace('-thumb', '');
         this.currIndex--;
     }
 
     onClickHandler(e) {
-        if (!e.target.classList.contains('gallery__img')) { return; }
+        if (!e.target.classList.contains('gallery__img')) { return }
         e.preventDefault();
 
         this.currIndex =  e.target.parentNode.parentNode.id.slice(length - 1);
 
         this.prevInactive();
         e.target.parentNode.parentNode.classList.add('active');
-        largeImg.src = e.target.src.replace('jpeg', 'png').replace('-thumb', '');
+        this.bigImage.src = e.target.src.replace('jpeg', 'png').replace('-thumb', '');
     }
     
     onKeyPress(e) {
@@ -50,8 +49,8 @@ class Gallery {
         const prevKeys = new Set(['ArrowLeft', 'ArrowDown', 'KeyA', 'KeyS']);
         const nextKeys = new Set(['ArrowRight', 'ArrowUp', 'KeyD', 'KeyW']);
         
-        if (prevKeys.has(e.code)) { this.togglePrevPic(); }
-        if (nextKeys.has(e.code)) { this.toggleNextPic(); }
+        if (prevKeys.has(e.code)) { this.togglePrevPic() }
+        if (nextKeys.has(e.code)) { this.toggleNextPic() }
     };
 
     onScroll(e) {
@@ -59,7 +58,11 @@ class Gallery {
     }
 }
 
-const dayCycle = new Gallery();
+const gallery = document.querySelector('.gallery');
+const imgContainer = gallery.querySelector('.gallery__list')
+const bigImg = gallery.querySelector('#largeImg');
+
+const dayCycle = new Gallery(imgContainer, bigImg);
 
 imgContainer.addEventListener('click', e => dayCycle.onClickHandler(e));
 document.addEventListener('keydown', e => dayCycle.onKeyPress(e));
