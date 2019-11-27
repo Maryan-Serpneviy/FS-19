@@ -70,7 +70,6 @@ module.exports = {
 	plugins: [
 		new HtmlWebpackPlugin({
 			hash: false,
-			inject: true,
 			template: `${Path.public}/index.html`,
 			filename: `index.html`
 		}),
