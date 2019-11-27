@@ -4,10 +4,10 @@
 }
 
 .Carousel__list {
-    width: 1300px;
     padding: 0;
     display: flex;
     overflow: hidden;
+    margin: 0 auto;
 }
 
 .btn {
@@ -16,6 +16,7 @@
     color: rgb(126, 126, 19);
     border: 3px solid rgb(126, 126, 19);
     font-weight: bold;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
 .btn:hover {
@@ -31,6 +32,7 @@
     position: relative;
     top: 1px;
     left: 1px;
+    outline: none;
 }
 
 .btn-scroll {

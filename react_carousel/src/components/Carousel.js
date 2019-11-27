@@ -4,7 +4,7 @@ import images from './images'
 
 const Option = {
     itemsCount: images.length,
-    itemWidth: 130,
+    itemWidth: 100,
     interval: 2500
 }
 
@@ -21,6 +21,7 @@ export default class Carousel extends React.Component {
     scrollCounter = 0
     // refs
     carousel = React.createRef()
+    itemsContainer = React.createRef()
     prev = React.createRef()
     next = React.createRef()
     loop = React.createRef()
@@ -30,7 +31,7 @@ export default class Carousel extends React.Component {
 
     scrollBackwards = () => {
         this.enableBtn(this.next)
-
+        
         this.carousel.current.scroll({
             left: this.scrollCounter - Option.itemWidth * this.state.step,
             behavior: 'smooth'
@@ -49,7 +50,7 @@ export default class Carousel extends React.Component {
 
     scrollForwards = () => {
         this.enableBtn(this.prev)
-
+        
         this.carousel.current.scroll({
             left: this.scrollCounter + Option.itemWidth * this.state.step,
             behavior: 'smooth'
@@ -123,6 +124,8 @@ export default class Carousel extends React.Component {
 
     componentDidMount() {
         this.carousel.current.style.width = `${Option.itemWidth * this.state.frameSize}px`
+        this.itemsContainer.current.style.width = `${Option.itemWidth * Option.itemsCount}px`
+
         this.size.current.value = this.state.frameSize
         this.step.current.value = this.state.step
         this.disableBtn(this.prev)
@@ -136,10 +139,10 @@ export default class Carousel extends React.Component {
         return (
             <>
                 <div ref={this.carousel} className="Carousel">
-                    <ul className="Carousel__list">
+                    <ul ref={this.itemsContainer} className="Carousel__list">
                         {images.map(img => (
                             <li key={img}>
-                                <img src={img} alt="smiley" />
+                                <img width={Option.itemWidth} src={img} alt="smiley" />
                             </li>
                         ))}
                     </ul>
