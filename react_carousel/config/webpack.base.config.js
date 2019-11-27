@@ -70,6 +70,7 @@ module.exports = {
 	plugins: [
 		new HtmlWebpackPlugin({
 			hash: false,
+			inject: true,
 			template: `${Path.public}/index.html`,
 			filename: `index.html`
 		}),
@@ -81,8 +82,8 @@ module.exports = {
 			disable: process.env.NODE_ENV !== 'production' // Disable during development
 		}),
 		new CopyWebpackPlugin([
-			{ from: `${Path.public}`, to: '' }
-			// { from: `${Path.src}/assets/fonts`, to: 'fonts' }
+			{ from: `${Path.public}`, to: '' },
+			{ from: `${Path.src}/assets/images`, to: 'assets/images' }
 		])
 	]
 }
