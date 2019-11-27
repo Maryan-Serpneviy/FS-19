@@ -51,16 +51,10 @@ export default class TodoList extends React.Component {
         const { requested, loaded, todos } = this.state
 
         if (!requested) {
-            return (
-                <>
-                    <h1>Dynamic list of todos</h1>
-                    <button onClick={this.download}>Fetch</button>
-                </>
-            )
+            return <button onClick={this.download}>Fetch</button>
         } else if (loaded) {
             return (
                 <>
-                    <h1>Dynamic list of todos</h1>
                     <button onClick={() => {window.location.reload()}}>Reload</button>
                     <h2>Sort by:</h2>
                     <button onClick={this.sortByTitle}>Title</button>
@@ -77,12 +71,7 @@ export default class TodoList extends React.Component {
                 </>
             )
         } else {
-            return (
-                <>
-                    <h1>Dynamic list of todos</h1>
-                    <p>Loading...</p>
-                </>
-            )
+            return <p>Loading...</p>
         }
     }
 }
