@@ -4,42 +4,41 @@ import getUsers from '../api/users'
 
 export default class TodoItem extends React.Component {
     state = {
-        loaded: false,
-        users: null
+        isLoaded: false,
+        users: []
     }
 
     componentDidMount() {
         getUsers().then(users => {
             this.setState({
-                loaded: !this.state.loaded,
+                isLoaded: !this.state.isLoaded,
                 users
             })
         })
     }
 
     render() {
-        if (this.state.loaded) {
-            return (
-                <div className="todo">
-                    {/* task */}
-                    <h3>{this.props.task}</h3>
-                    {/* user */}
-                    {this.state.users
-                        .filter(user => this.props.userId === user.id)
-                        .map(user => (
-                            <User
-                                key={user.id}
-                                name={user.name}
-                                username={user.username}
-                                email={user.email}
-                                completed={this.props.completed}
-                            />
-                        ))
-                    }
-                </div>
-            )
-        } else {
-            return <p>Loading...</p>
+        if (!this.state.isLoaded) {
+            return <div>Loading...</div>
         }
+        return (
+            <div className="todo">
+                {/* task */}
+                <h3>{this.props.task}</h3>
+                {/* user */}
+                {this.state.users
+                    .filter(user => this.props.userId === user.id)
+                    .map(user => (
+                        <User
+                            key={user.id}
+                            name={user.name}
+                            username={user.username}
+                            email={user.email}
+                            completed={this.props.completed}
+                        />
+                    ))
+                }
+            </div>
+        )
     }
 }
