@@ -1,6 +1,7 @@
 .Carousel {
     overflow: hidden;
     margin: 0 auto;
+    margin-bottom: 25px;
 }
 
 .Carousel__list {
@@ -36,29 +37,31 @@
 }
 
 .btn-scroll {
-    width: 75px;
-    height: 75px;
+    width: 60px;
+    height: 60px;
     font-size: 30px;
     border-radius: 50%;
 }
 
 .btn-prev {
-    margin-right: 20px;
+    margin-right: 15px;
 }
 
 .btn-loop {
-    width: 100px;
+    width: 80px;
     margin-top: 20px;
     border-radius: 10px;
-    padding: 10px;
+    padding: 8px;
     text-transform: uppercase;
-    font-size: 20px;
+    font-size: 18px;
+    margin-top: 30px;
+    margin-bottom: 10px;
 }
 
 label {
-    font-size: 20px;
+    font-size: 18px;
     font-weight: bold;
-    padding-right: 10px;
+    padding-right: 8px;
 }
 
 select,  option {
@@ -67,13 +70,13 @@ select,  option {
     color: rgb(126, 126, 19);
     background-color: rgb(247, 247, 179);
     width: 40px;
-    height: 35px;
+    height: 30px;
     font-size: 16px;
     font-weight: bold;
 }
 
 select {
-    margin-right: 15px;
+    margin-right: 8px;
     position: relative;
     bottom: 2px;
 }
