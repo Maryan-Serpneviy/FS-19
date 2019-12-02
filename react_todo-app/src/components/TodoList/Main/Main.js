@@ -1,23 +1,7 @@
 import React from 'react'
 import './Main.scss'
-import TodoItem from './TodoItem/TodoItem'
 
 export default class Main extends React.Component {
-    state = {
-        checked: false
-    }
-
-    handleTodoCheck = event => {
-        const { id, checked } = event.target
-
-        for (const todo of this.props.todos) {
-            if (todo.id === Number(id)) {
-                todo.completed = checked
-            }
-        }
-        this.setState({ checked })
-    }
-
     render() {
         return (
             <section className="main" style={{ display: 'block' }}>
@@ -30,12 +14,12 @@ export default class Main extends React.Component {
                             <div className="view">
                                 <input
                                     id={todo.id}
-                                    onChange={this.handleTodoCheck}
+                                    onChange={this.props.handleCompletedTodo}
                                     type="checkbox"
                                     className="toggle"
                                 />
-                                <label htmlFor="todo-1">{todo.content}</label>
-                                <button type="button" className="destroy" />
+                                <label htmlFor={`todo-${todo.id}`}>{todo.content}</label>
+                                <button id={todo.id} onPointerDown={this.props.removeTodo} className="destroy" />
                             </div>
                         </li>
                     ))}

@@ -14,24 +14,40 @@ export default class Header extends React.Component {
     }
 
     addNewTodo = e => {
-        const { todoInput } = this.state
+        const { todoInput, todos } = this.state
 
         if (e.key === 'Enter' && todoInput.trim()) {
             this.setState(state => {
-                const newTodo = {
+                todos.push({
                     id: state.nextTodo,
-                    content: state.todoInput,
+                    content: todoInput,
                     completed: false
-                }
-                const newTodos = [...state.todos, newTodo]
-                
+                })
                 return {
-                    todos: newTodos,
+                    todos,
                     nextTodo: state.nextTodo + 1,
                     todoInput: ''
                 }
             })
         }
+    }
+
+    handleCompletedTodo = event => {
+        const { id } = event.target
+        this.setState(state => {
+            for (const todo of state.todos) {
+                if (todo.id === Number(id)) {
+                    todo.completed = !todo.completed
+                }
+            }
+            return state
+        })
+    }
+
+    removeTodo = event => {
+        const { id } = event.target
+        const updatedTodos = this.state.todos.filter(todo => todo.id !== Number(id))
+        this.setState({ todos: updatedTodos })
     }
 
     render() {
@@ -48,7 +64,11 @@ export default class Header extends React.Component {
                         placeholder="What needs to be done?"
                     />
                 </header>
-                <Main todos={this.state.todos} />
+                <Main
+                    todos={this.state.todos}
+                    handleCompletedTodo={this.handleCompletedTodo}
+                    removeTodo={this.removeTodo}
+                />
             </>
         )
     }
