@@ -6,8 +6,7 @@ const Option = {
     itemsCount: images.length,
     itemWidth: 100,
     interval: 2500,
-    maxSize: 5,
-    maxStep: 5
+    maxSize: 5
 }
 
 export default class Carousel extends React.Component {
@@ -22,10 +21,6 @@ export default class Carousel extends React.Component {
     itemsContainer = React.createRef()
     prev = React.createRef()
     next = React.createRef()
-    loop = React.createRef()
-    size = React.createRef()
-    step = React.createRef()
-    interval = React.createRef()
 
     framesCounter = Option.itemsCount - this.state.frameSize
     scrollCounter = 0
@@ -91,9 +86,7 @@ export default class Carousel extends React.Component {
 
     handleChange = event => {
         const { name, value } = event.target
-        this.setState({
-            [name]: value
-        })
+        this.setState({ [name]: value })
     }
 
     enableBtn(ref) {
@@ -136,20 +129,20 @@ export default class Carousel extends React.Component {
                 <button ref={this.next} onPointerDown={this.scrollForwards} className="btn btn-scroll btn-next">&gt;</button>
                 <br />
                 <button
-                    ref={this.loop} onPointerDown={this.toggleLoop} className="btn btn-loop"
+                    onPointerDown={this.toggleLoop} className="btn btn-loop"
                     style={!this.state.infinite ? { boxShadow: 'inset 0 0 5px 2px rgb(134, 134, 11)' } : { boxShadow: '' }}>
                     Loop
                 </button>
                 <br />
                 <br />
                 <label>
-                    Size <select ref={this.size} onChange={this.handleChange} value={this.state.frameSize} name="frameSize">
+                    Size <select value={this.state.frameSize} onChange={this.handleChange} name="frameSize">
                         {options}
                     </select>
                 </label>
                 
                 <label>
-                    Step <select ref={this.step} onChange={this.handleChange} value={this.state.step} name="step">
+                    Step <select value={this.state.step} onChange={this.handleChange} name="step">
                         {options}
                     </select>
                 </label>
@@ -158,11 +151,8 @@ export default class Carousel extends React.Component {
                     <>
                         <label>
                             Interval <select
-                                ref={this.interval}
-                                onChange={this.handleIntervalChange}
                                 value={this.state.loopInterVal / 1000}
-                                style={{ width: '50px' }}
-                                name="interval"
+                                onChange={this.handleIntervalChange} style={{ width: '50px' }}
                             >
                                 {options}
                                 <option>2.5</option>
