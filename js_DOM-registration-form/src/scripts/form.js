@@ -18,11 +18,22 @@ export default class Form {
     citySelected = false;
 
     validateName() {
-        const nameParts = this.name.value.trim().split(' ')
-            .filter(part => part !== '')
-            .map(part => part.trim());
-        this.validName = nameParts.every(el => el.length >= 4);
-        if (this.validName && (nameParts.length === 2 || nameParts.length === 3)) {
+        // using arrays
+        if (false) {
+            const nameParts = this.name.value.trim().split(' ')
+                .filter(part => part !== '')
+                .map(part => part.trim());
+            this.validName = nameParts.every(el => el.length >= 4);
+            if (this.validName && (nameParts.length === 2 || nameParts.length === 3)) {
+                this.validName = true;
+                this.name.className = 'valid';
+            } else {
+                this.validName = false;
+                this.name.className = 'invalid';
+            }
+        }
+        // using RegExp
+        if (this.name.value.match(Const.RegExp.name)) {
             this.validName = true;
             this.name.className = 'valid';
         } else {
