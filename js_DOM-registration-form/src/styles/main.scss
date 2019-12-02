@@ -2,10 +2,6 @@
 @import "fonts";
 @import "typography";
 
-// SUCCESS: '#28a745',
-// WARNING: '#ffc107',
-// DANGER: '#dc3545'
-
 $input-w: 235px;
 $submit-w: $input-w / 2;
 $checkbox-size: 17px;
@@ -144,9 +140,6 @@ legend {
   legend {
     font-size: 4.5em;
     padding-left: 225px;
-    // position: absolute;
-    // left: 50%;
-    // transform: translate(-50%, -50%);
   }
 
   input[type=text], input[type=tel], select {
