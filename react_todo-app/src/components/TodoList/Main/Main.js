@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import './Main.scss'
 import ToggleAll from './ToggleAll'
 
@@ -32,4 +33,12 @@ export default function Main(props) {
             </ul>
         </section>
     )
+}
+
+Main.propTypes = {
+    todos: PropTypes.array.isRequired,
+    display: PropTypes.oneOf(['All', 'Active', 'Completed']).isRequired,
+    handleCompletedTodo: PropTypes.func.isRequired,
+    removeTodo: PropTypes.func.isRequired,
+    toggleAllTodos: PropTypes.func.isRequired
 }

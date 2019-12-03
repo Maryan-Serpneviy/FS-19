@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 export default function ToggleAll(props) {
     return (
@@ -13,4 +14,9 @@ export default function ToggleAll(props) {
             <label htmlFor="toggle-all">Mark all as complete</label>
         </>
     )
+}
+
+ToggleAll.propTypes = {
+    checked: PropTypes.bool.isRequired,
+    toggleAllTodos: PropTypes.func.isRequired
 }

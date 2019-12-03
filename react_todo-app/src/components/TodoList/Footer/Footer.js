@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import './Footer.scss'
 
 export default function Footer(props) {
@@ -21,4 +22,12 @@ export default function Footer(props) {
                 </button> : null}
         </footer>
     )
+}
+
+Footer.propTypes = {
+    todosLeft: PropTypes.number.isRequired,
+    display: PropTypes.oneOf(['All', 'Active', 'Completed']).isRequired,
+    completed: PropTypes.bool.isRequired,
+    filterDisplay: PropTypes.func.isRequired,
+    clearCompleted: PropTypes.func.isRequired
 }
