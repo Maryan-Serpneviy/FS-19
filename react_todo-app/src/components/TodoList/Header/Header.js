@@ -6,7 +6,8 @@ export default class Header extends React.Component {
     state = {
         todoInput: '',
         nextTodo: 0,
-        todos: []
+        todos: [],
+        allToggled: false
     }
 
     handleNewTodo = e => {
@@ -50,6 +51,25 @@ export default class Header extends React.Component {
         this.setState({ todos: updatedTodos })
     }
 
+    toggleAllTodos = checked => {
+        this.setState(state => {
+            state.allToggled = !state.allToggled
+            for (const todo of state.todos) {
+                todo.completed = state.allToggled
+            }
+            // return {
+            //     todos: state.todos.map(todo => {
+            //         return {
+            //             id: todo.id,
+            //             content: todo.content,
+            //             completed: !state.toggleAll
+            //         }
+            //     })
+            // }
+            return state
+        })
+    }
+
     render() {
         return (
             <>
@@ -68,6 +88,7 @@ export default class Header extends React.Component {
                     todos={this.state.todos}
                     handleCompletedTodo={this.handleCompletedTodo}
                     removeTodo={this.removeTodo}
+                    toggleAllTodos={this.toggleAllTodos}
                 />
             </>
         )
