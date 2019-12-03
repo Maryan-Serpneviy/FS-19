@@ -6,19 +6,16 @@ export default function Footer(props) {
         <footer className="footer" style={{ display: 'block' }}>
             <span className="todo-count">{props.todosLeft} todos left</span>
                 <ul className="filters">
-                    <li>
-                        <a href="#/" className="selected">All</a>
-                    </li>
-
-                    <li>
-                        <a href="#/active">Active</a>
-                    </li>
-
-                    <li>
-                        <a href="#/completed">Completed</a>
-                    </li>
+                    {['All', 'Active', 'Completed'].map(li => (
+                        <li key={li}>
+                            <a
+                                href={`#/${li}`}
+                                className={props.display === li ? 'selected' : ''}
+                                onClick={props.filterDisplay}
+                            >{li}</a>
+                        </li>
+                    ))}
                 </ul>
-
                 <button className="clear-completed">Clear completed</button>
         </footer>
     )

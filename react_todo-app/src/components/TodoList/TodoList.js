@@ -8,7 +8,8 @@ export default class TodoList extends React.Component {
         todoInput: '',
         nextTodo: 0,
         todos: [],
-        allToggled: false
+        allToggled: false,
+        display: 'All'
     }
 
     handleNewTodo = e => {
@@ -62,6 +63,10 @@ export default class TodoList extends React.Component {
         })
     }
 
+    filterDisplay = event => {
+        this.setState({ display: event.target.innerText })
+    }
+
     render() {
         return (
             <section className="todoapp">
@@ -81,9 +86,12 @@ export default class TodoList extends React.Component {
                     handleCompletedTodo={this.handleCompletedTodo}
                     removeTodo={this.removeTodo}
                     toggleAllTodos={this.toggleAllTodos}
+                    display={this.state.display}
                 />
                 <Footer
                     todosLeft={this.state.todos.filter(todo => !todo.completed).length}
+                    display={this.state.display}
+                    filterDisplay={this.filterDisplay}
                 />
             </section>
         )
