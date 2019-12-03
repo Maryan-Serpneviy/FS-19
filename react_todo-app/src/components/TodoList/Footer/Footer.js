@@ -16,7 +16,9 @@ export default function Footer(props) {
                         </li>
                     ))}
                 </ul>
-                <button className="clear-completed">Clear completed</button>
+                {props.completed ? <button className="clear-completed" onClick={props.clearCompleted}>
+                    Clear completed
+                </button> : null}
         </footer>
     )
 }
