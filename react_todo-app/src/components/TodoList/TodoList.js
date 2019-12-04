@@ -9,12 +9,14 @@ const MIN_LENGTH = 4
 export default class TodoList extends React.Component {
     state = {
         todoInput: '',
+        editValue: '',
         nextTodo: 0,
         todos: [],
         display: 'All',
         allToggled: false,
         completed: false,
         canAdd: false,
+        canEdit: false,
         confirm: false,
         action: null,
         currentId: null
@@ -103,6 +105,37 @@ export default class TodoList extends React.Component {
         })
     }
 
+    handleTodoEdit = event => {
+        this.setState({ editValue: event.target.value })
+    }
+
+    editTodo = event => {
+        const id = Number(/\d+/.exec(event.target.htmlFor)[0])
+        this.setState({
+            canEdit: true,
+            currentId: id,
+            editValue: event.target.innerText
+        })
+    }
+
+    finishTodoEdit = event => {
+        if (event.key === 'Enter') {
+            console.log('finish')
+        }
+    }
+
+    componentDidUpdate() {
+        const todoEdit = document.querySelector('.todo-edit')
+        if (todoEdit) {
+            todoEdit.focus()
+            todoEdit.value = this.state.editValue
+        }
+    }
+
+    componentDidMount() {
+        this.inputField.current.focus()
+    }
+
     render() {
         return (
             <section className="todoapp">
@@ -133,6 +166,14 @@ export default class TodoList extends React.Component {
                     todos={this.state.todos}
                     confirmAction={this.confirmAction}
                     handleCompletedTodo={this.handleCompletedTodo}
+                    // edit
+                    current={this.state.currentId}
+                    canEdit={this.state.canEdit}
+                    editValue={this.state.editValue}
+                    handleTodoEdit={this.handleTodoEdit}
+                    editTodo={this.editTodo}
+                    finishTodoEdit={this.finishTodoEdit}
+
                     removeTodo={this.removeTodo}
                     toggleAllTodos={this.toggleAllTodos}
                     display={this.state.display}

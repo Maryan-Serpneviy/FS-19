@@ -1,3 +1,5 @@
+@import '../../../assets/scss/utils/variables';
+
 .main {
     position: relative;
     z-index: 2;
@@ -106,6 +108,7 @@
     display: block;
     line-height: 1.2;
     transition: color 0.4s;
+    cursor: text;
 }
   
 .todo-list li.completed label {
@@ -146,4 +149,20 @@
   
 .todo-list li.editing:last-child {
     margin-bottom: -1px;
+}
+
+.view {
+    display: flex;
+}
+
+.todo-edit {
+    word-break: break-all;
+    padding: 13px 20px;
+    line-height: 1.2;
+    transition: color .4s;
+    font-size: $todo-font-size;
+    margin-left: 40px;
+    position: relative;
+    outline: none;
+    width: 100%;
 }

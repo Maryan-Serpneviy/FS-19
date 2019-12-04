@@ -5,7 +5,7 @@ import ToggleAll from './ToggleAll'
 
 export default function Main(props) {
     return (
-        <section className="main" style={{ display: 'block' }}>
+        <section className="main">
             <ToggleAll
                 checked={props.todos.every(todo => todo.completed)}
                 toggleAllTodos={props.toggleAllTodos}
@@ -18,20 +18,28 @@ export default function Main(props) {
                     .map(todo => (
                     <li key={todo.id} className={todo.completed ? 'completed' : ''}>
                         <div className="view">
-                            <input
+                            {!props.canEdit && <input
                                 id={todo.id}
                                 checked={todo.completed}
                                 onChange={props.handleCompletedTodo}
                                 className="toggle"
                                 type="checkbox"
-                            />
-                            <label htmlFor={`todo-${todo.id}`}>{todo.content}</label>
-                            <button
+                            />}
+                            {props.canEdit && todo.id === props.current
+                                ? <input
+                                    onChange={props.handleTodoEdit}
+                                    onKeyDown={props.finishTodoEdit}
+                                    value={props.editValue}
+                                    className="todo-edit"
+                                  />
+                                : <label onClick={props.editTodo} htmlFor={`todo-${todo.id}`}>{todo.content}</label>
+                            }
+                            {!props.canEdit && <button
                                 id={todo.id}
                                 onPointerDown={props.confirmAction}
                                 name="remove"
                                 className="destroy"
-                            />
+                            />}
                         </div>
                     </li>
                 ))}
@@ -45,5 +53,10 @@ Main.propTypes = {
     display: PropTypes.oneOf(['All', 'Active', 'Completed']).isRequired,
     handleCompletedTodo: PropTypes.func.isRequired,
     confirmAction: PropTypes.func.isRequired,
-    toggleAllTodos: PropTypes.func.isRequired
+    toggleAllTodos: PropTypes.func.isRequired,
+
+    current: PropTypes.number,
+    canEdit: PropTypes.bool.isRequired,
+    handleTodoEdit: PropTypes.func,
+    editTodo: PropTypes.func
 }
