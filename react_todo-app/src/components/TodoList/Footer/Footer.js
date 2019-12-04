@@ -17,7 +17,11 @@ export default function Footer(props) {
                         </li>
                     ))}
                 </ul>
-                {props.completed ? <button className="clear-completed" onClick={props.clearCompleted}>
+                {props.completed ? <button
+                    onClick={props.confirmAction}
+                    className="clear-completed"
+                    name="clear"
+                >
                     Clear completed
                 </button> : null}
         </footer>
@@ -29,5 +33,5 @@ Footer.propTypes = {
     display: PropTypes.oneOf(['All', 'Active', 'Completed']).isRequired,
     completed: PropTypes.bool.isRequired,
     filterDisplay: PropTypes.func.isRequired,
-    clearCompleted: PropTypes.func.isRequired
+    confirmAction: PropTypes.func.isRequired
 }

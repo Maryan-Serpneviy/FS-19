@@ -114,7 +114,6 @@
 }
   
 .todo-list li .destroy {
-    display: none;
     position: absolute;
     top: 0;
     right: 10px;
@@ -130,6 +129,7 @@
   
 .todo-list li .destroy:hover {
     color: #af5b5e;
+    cursor: pointer;
 }
   
 .todo-list li .destroy:after {
