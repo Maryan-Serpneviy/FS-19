@@ -2,6 +2,9 @@ import React from 'react'
 import './TodoList.scss'
 import Main from './Main/Main'
 import Footer from './Footer/Footer'
+import Confirm from './Confirm/Confirm'
+
+const MIN_LENGTH = 4
 
 export default class TodoList extends React.Component {
     state = {
@@ -10,17 +13,25 @@ export default class TodoList extends React.Component {
         todos: [],
         display: 'All',
         allToggled: false,
-        completed: false
+        completed: false,
+        confirm: false,
+        canAdd: false
     }
 
-    handleNewTodo = e => {
-        this.setState({ todoInput: e.target.value })
+    handleNewTodo = event => {
+        this.setState({ todoInput: event.target.value })
     }
 
-    addNewTodo = e => {
+    addNewTodo = event => {
         const { todoInput, todos } = this.state
+        const { id } = event.target
 
-        if (e.key === 'Enter' && todoInput.trim()) {
+        todoInput.length > MIN_LENGTH
+            ? this.setState({ canAdd: true })
+            : this.setState({ canAdd: false })
+        
+        if (event.key === 'Enter' && todoInput.length > MIN_LENGTH && todoInput.trim() ||
+            id === 'btn-new' && todoInput.length > MIN_LENGTH && todoInput.trim()) {
             this.setState(state => {
                 todos.push({
                     id: state.nextTodo,
@@ -30,7 +41,8 @@ export default class TodoList extends React.Component {
                 return {
                     todos,
                     nextTodo: state.nextTodo + 1,
-                    todoInput: ''
+                    todoInput: '',
+                    canAdd: false
                 }
             })
         }
@@ -76,22 +88,33 @@ export default class TodoList extends React.Component {
         })
     }
 
+    confirmAction = event => {
+        this.setState({ confirm: !this.state.confirm })
+    }
+
     render() {
         return (
             <section className="todoapp">
+                {this.state.confirm && <Confirm active={this.state.confirm} />}
                 <header className="header">
-                    <h1>todos</h1>
+                    <h1 onClick={this.confirmAction} style={{ userSelect: 'none' }}>todos</h1>
                     <input
                         value={this.state.todoInput}
                         onChange={this.handleNewTodo}
-                        onKeyDown={this.addNewTodo}
+                        onKeyUpCapture={this.addNewTodo}
                         maxLength={40}
                         className="new-todo"
                         placeholder="What needs to be done?"
                     />
+                    <button
+                        onPointerUp={this.addNewTodo}
+                        className={this.state.canAdd ? 'add-todo_active' : 'add-todo'}
+                        id="btn-new"
+                    >+</button>
                 </header>
                 <Main
                     todos={this.state.todos}
+                    confirmAction={this.confirmAction}
                     handleCompletedTodo={this.handleCompletedTodo}
                     removeTodo={this.removeTodo}
                     toggleAllTodos={this.toggleAllTodos}

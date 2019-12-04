@@ -26,7 +26,7 @@ export default function Main(props) {
                                 type="checkbox"
                             />
                             <label htmlFor={`todo-${todo.id}`}>{todo.content}</label>
-                            <button id={todo.id} onPointerDown={props.removeTodo} className="destroy" />
+                            <button id={todo.id} onPointerDown={props.confirmAction} className="destroy" />
                         </div>
                     </li>
                 ))}
@@ -39,6 +39,6 @@ Main.propTypes = {
     todos: PropTypes.array.isRequired,
     display: PropTypes.oneOf(['All', 'Active', 'Completed']).isRequired,
     handleCompletedTodo: PropTypes.func.isRequired,
-    removeTodo: PropTypes.func.isRequired,
+    //removeTodo: PropTypes.func.isRequired,
     toggleAllTodos: PropTypes.func.isRequired
 }
