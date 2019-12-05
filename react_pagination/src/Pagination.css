@@ -1,0 +1,27 @@
+ul {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+}
+
+.page-link {
+    padding: 5px 10px;
+    font-size: 20px;
+    color: blue;
+    width: 25px;
+    height: 25px;
+    border: 1px solid blue;
+    margin-right: 3px;
+}
+
+.page-link:hover, .page-link_active {
+    background: blue;
+    color: #fff;
+}
