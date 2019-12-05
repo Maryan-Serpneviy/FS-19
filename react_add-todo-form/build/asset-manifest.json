@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/FS-19/react_add-todo-form/static/css/main.cd967184.chunk.css",
+    "main.js": "/FS-19/react_add-todo-form/static/js/main.9d071001.chunk.js",
+    "main.js.map": "/FS-19/react_add-todo-form/static/js/main.9d071001.chunk.js.map",
+    "runtime~main.js": "/FS-19/react_add-todo-form/static/js/runtime~main.a066d695.js",
+    "runtime~main.js.map": "/FS-19/react_add-todo-form/static/js/runtime~main.a066d695.js.map",
+    "static/js/2.1e4a2dbe.chunk.js": "/FS-19/react_add-todo-form/static/js/2.1e4a2dbe.chunk.js",
+    "static/js/2.1e4a2dbe.chunk.js.map": "/FS-19/react_add-todo-form/static/js/2.1e4a2dbe.chunk.js.map",
+    "index.html": "/FS-19/react_add-todo-form/index.html",
+    "precache-manifest.395c839fb436143841426c7bd12bf595.js": "/FS-19/react_add-todo-form/precache-manifest.395c839fb436143841426c7bd12bf595.js",
+    "service-worker.js": "/FS-19/react_add-todo-form/service-worker.js",
+    "static/css/main.cd967184.chunk.css.map": "/FS-19/react_add-todo-form/static/css/main.cd967184.chunk.css.map"
+  }
+}
