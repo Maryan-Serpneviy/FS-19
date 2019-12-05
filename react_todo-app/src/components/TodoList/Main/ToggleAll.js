@@ -9,7 +9,7 @@ export default function ToggleAll(props) {
                 id="toggle-all"
                 className="toggle-all"
                 checked={props.checked}
-                onChange={props.toggleAllTodos}
+                onChange={props.checkAllTodos}
             />
             <label htmlFor="toggle-all">Mark all as complete</label>
         </>
@@ -18,5 +18,5 @@ export default function ToggleAll(props) {
 
 ToggleAll.propTypes = {
     checked: PropTypes.bool.isRequired,
-    toggleAllTodos: PropTypes.func.isRequired
+    checkAllTodos: PropTypes.func.isRequired
 }

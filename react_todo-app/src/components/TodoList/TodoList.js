@@ -12,8 +12,8 @@ export default class TodoList extends React.Component {
         editValue: '',
         nextTodo: 0,
         todos: [],
-        display: 'All',
-        allToggled: false,
+        filter: 'All',
+        allChecked: false,
         completed: false,
         canAdd: false,
         canEdit: false,
@@ -31,12 +31,12 @@ export default class TodoList extends React.Component {
         const { todoInput, todos } = this.state
         const { id } = event.target
 
-        todoInput.length > MIN_LENGTH
+        todoInput.length > MIN_LENGTH // if not required length - btn is disabled
             ? this.setState({ canAdd: true })
             : this.setState({ canAdd: false })
         
-        if (event.key === 'Enter' && todoInput.length > MIN_LENGTH && todoInput.trim() ||
-            id === 'btn-new' && todoInput.length > MIN_LENGTH && todoInput.trim()) {
+        if (event.key === 'Enter' && todoInput.length > MIN_LENGTH && todoInput.trim() || // on enter
+            id === 'btn-new' && todoInput.length > MIN_LENGTH && todoInput.trim()) { // on btn click
             this.inputField.current.focus()
 
             this.setState(state => {
@@ -47,6 +47,7 @@ export default class TodoList extends React.Component {
                 })
                 return {
                     todos,
+                    // new todo
                     nextTodo: state.nextTodo + 1,
                     todoInput: '',
                     canAdd: false
@@ -55,7 +56,7 @@ export default class TodoList extends React.Component {
         }
     }
 
-    handleCompletedTodo = event => {
+    handleTodoCheck = event => {
         const { id } = event.target
         this.setState(state => {
             for (const todo of state.todos) {
@@ -68,23 +69,22 @@ export default class TodoList extends React.Component {
     }
 
     removeTodo = () => {
-        const { currentId } = this.state
-        const updatedTodos = this.state.todos.filter(todo => todo.id !== Number(currentId))
+        const updatedTodos = this.state.todos.filter(todo => todo.id !== this.state.currentId)
         this.setState({ todos: updatedTodos, confirm: false })
     }
 
-    toggleAllTodos = () => {
+    checkAllTodos = () => {
         this.setState(state => {
-            state.allToggled = !state.allToggled
+            state.allChecked = !state.allChecked
             for (const todo of state.todos) {
-                todo.completed = state.allToggled
+                todo.completed = state.allChecked
             }
             return state
         })
     }
 
-    filterDisplay = event => {
-        this.setState({ display: event.target.innerText })
+    setFilter = event => { // All / Active / Completed
+        this.setState({ filter: event.target.innerText })
     }
 
     clearCompleted = () => {
@@ -101,7 +101,7 @@ export default class TodoList extends React.Component {
         this.setState({
             confirm: !this.state.confirm,
             action: name,
-            currentId: id
+            currentId: Number(id)
         })
     }
 
@@ -120,8 +120,20 @@ export default class TodoList extends React.Component {
 
     finishTodoEdit = event => {
         if (event.key === 'Enter') {
-            console.log('finish')
+            this.changeTodoText()
         }
+    }
+
+    changeTodoText = () => {
+        const { currentId, editValue } = this.state
+        this.setState(state => {
+            const editable = state.todos.find(todo => todo.id === currentId)
+            editable.content = editValue
+            return {
+                todos: state.todos,
+                canEdit: !state.canEdit
+            }
+        })
     }
 
     componentDidUpdate() {
@@ -146,7 +158,7 @@ export default class TodoList extends React.Component {
                     clearCompleted={this.clearCompleted}
                 />}
                 <header className="header">
-                    <h1 onClick={this.confirmAction}>todos</h1>
+                    <h1>todos</h1>
                     <input
                         value={this.state.todoInput}
                         onChange={this.handleNewTodo}
@@ -165,7 +177,10 @@ export default class TodoList extends React.Component {
                 <Main
                     todos={this.state.todos}
                     confirmAction={this.confirmAction}
-                    handleCompletedTodo={this.handleCompletedTodo}
+                    handleTodoCheck={this.handleTodoCheck}
+                    removeTodo={this.removeTodo}
+                    checkAllTodos={this.checkAllTodos}
+                    filter={this.state.filter}
                     // edit
                     current={this.state.currentId}
                     canEdit={this.state.canEdit}
@@ -173,17 +188,14 @@ export default class TodoList extends React.Component {
                     handleTodoEdit={this.handleTodoEdit}
                     editTodo={this.editTodo}
                     finishTodoEdit={this.finishTodoEdit}
-
-                    removeTodo={this.removeTodo}
-                    toggleAllTodos={this.toggleAllTodos}
-                    display={this.state.display}
+                    changeTodoText={this.changeTodoText}
                 />
                 <Footer
                     todosLeft={this.state.todos.filter(todo => !todo.completed).length}
                     completed={this.state.todos.some(todo => todo.completed)}
-                    display={this.state.display}
+                    filter={this.state.filter}
+                    setFilter={this.setFilter}
                     confirmAction={this.confirmAction}
-                    filterDisplay={this.filterDisplay}
                     clearCompleted={this.clearCompleted}
                     confirmAction={this.confirmAction}
                 />

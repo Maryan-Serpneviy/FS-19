@@ -4,15 +4,15 @@ import './Footer.scss'
 
 export default function Footer(props) {
     return (
-        <footer className="footer" style={{ display: 'block' }}>
+        <footer className="footer" style={{ filter: 'block' }}>
             <span className="todo-count">{props.todosLeft} todos left</span>
                 <ul className="filters">
                     {['All', 'Active', 'Completed'].map(li => (
                         <li key={li}>
                             <a
                                 href={`#/${li}`}
-                                className={props.display === li ? 'selected' : ''}
-                                onClick={props.filterDisplay}
+                                className={props.filter === li ? 'selected' : ''}
+                                onClick={props.setFilter}
                             >{li}</a>
                         </li>
                     ))}
@@ -30,8 +30,8 @@ export default function Footer(props) {
 
 Footer.propTypes = {
     todosLeft: PropTypes.number.isRequired,
-    display: PropTypes.oneOf(['All', 'Active', 'Completed']).isRequired,
+    filter: PropTypes.oneOf(['All', 'Active', 'Completed']).isRequired,
+    setFilter: PropTypes.func.isRequired,
     completed: PropTypes.bool.isRequired,
-    filterDisplay: PropTypes.func.isRequired,
     confirmAction: PropTypes.func.isRequired
 }

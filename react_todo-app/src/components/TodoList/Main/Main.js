@@ -8,20 +8,20 @@ export default function Main(props) {
         <section className="main">
             <ToggleAll
                 checked={props.todos.every(todo => todo.completed)}
-                toggleAllTodos={props.toggleAllTodos}
+                checkAllTodos={props.checkAllTodos}
             />
             <ul className="todo-list">
                 {props.todos.filter(todo =>
-                    props.display === 'All' ||
-                    props.display === 'Completed' && todo.completed ||
-                    props.display === 'Active' && !todo.completed)
+                    props.filter === 'All' ||
+                    props.filter === 'Completed' && todo.completed ||
+                    props.filter === 'Active' && !todo.completed)
                     .map(todo => (
                     <li key={todo.id} className={todo.completed ? 'completed' : ''}>
                         <div className="view">
                             {!props.canEdit && <input
                                 id={todo.id}
                                 checked={todo.completed}
-                                onChange={props.handleCompletedTodo}
+                                onChange={props.handleTodoCheck}
                                 className="toggle"
                                 type="checkbox"
                             />}
@@ -29,6 +29,7 @@ export default function Main(props) {
                                 ? <input
                                     onChange={props.handleTodoEdit}
                                     onKeyDown={props.finishTodoEdit}
+                                    onBlur={props.changeTodoText}
                                     value={props.editValue}
                                     className="todo-edit"
                                   />
@@ -50,13 +51,16 @@ export default function Main(props) {
 
 Main.propTypes = {
     todos: PropTypes.array.isRequired,
-    display: PropTypes.oneOf(['All', 'Active', 'Completed']).isRequired,
-    handleCompletedTodo: PropTypes.func.isRequired,
+    filter: PropTypes.oneOf(['All', 'Active', 'Completed']).isRequired,
+    handleTodoCheck: PropTypes.func.isRequired,
     confirmAction: PropTypes.func.isRequired,
-    toggleAllTodos: PropTypes.func.isRequired,
-
-    current: PropTypes.number,
+    checkAllTodos: PropTypes.func.isRequired,
+    // edit
     canEdit: PropTypes.bool.isRequired,
-    handleTodoEdit: PropTypes.func,
-    editTodo: PropTypes.func
+    current: PropTypes.number.isRequired,
+    editValue: PropTypes.string.isRequired,
+    handleTodoEdit: PropTypes.func.isRequired,
+    editTodo: PropTypes.func.isRequired,
+    finishTodoEdit: PropTypes.func.isRequired,
+    changeTodoText: PropTypes.func.isRequired
 }

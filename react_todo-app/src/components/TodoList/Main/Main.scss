@@ -165,4 +165,8 @@
     position: relative;
     outline: none;
     width: 100%;
+    color: inherit;
+    &::selection {
+        background-color: #b3d4fd;
+    }
 }
