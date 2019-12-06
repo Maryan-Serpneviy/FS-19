@@ -4,6 +4,10 @@ class Gallery {
     constructor(container, bigImage) {
         this.container = container;
         this.bigImage = bigImage;
+
+        this.onClickHandler = this.onClickHandler.bind(this);
+        this.onKeyPress = this.onKeyPress.bind(this);
+        this.onScroll = this.onScroll.bind(this);
     }
 
     currIndex = 0;
@@ -64,6 +68,6 @@ const bigImg = gallery.querySelector('#largeImg');
 
 const dayCycle = new Gallery(imgContainer, bigImg);
 
-imgContainer.addEventListener('click', e => dayCycle.onClickHandler(e));
-document.addEventListener('keydown', e => dayCycle.onKeyPress(e));
-document.addEventListener('wheel', e => dayCycle.onScroll(e));
+imgContainer.addEventListener('click', dayCycle.onClickHandler);
+document.addEventListener('keydown', dayCycle.onKeyPress);
+document.addEventListener('wheel', dayCycle.onScroll);
