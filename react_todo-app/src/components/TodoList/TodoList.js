@@ -31,12 +31,12 @@ export default class TodoList extends React.Component {
         const { todoInput, todos } = this.state
         const { id } = event.target
 
-        todoInput.length > MIN_LENGTH // if not required length - btn is disabled
+        todoInput.length > MIN_LENGTH // if not required length - btn new is disabled
             ? this.setState({ canAdd: true })
             : this.setState({ canAdd: false })
         
         if (event.key === 'Enter' && todoInput.length > MIN_LENGTH && todoInput.trim() || // on enter
-            id === 'btn-new' && todoInput.length > MIN_LENGTH && todoInput.trim()) { // on btn click
+            id === 'btn-new' && todoInput.length > MIN_LENGTH && todoInput.trim()) { // on btn new click
             this.inputField.current.focus()
 
             this.setState(state => {
@@ -53,6 +53,7 @@ export default class TodoList extends React.Component {
                     canAdd: false
                 }
             })
+
         }
     }
 
@@ -121,10 +122,14 @@ export default class TodoList extends React.Component {
     finishTodoEdit = event => {
         if (event.key === 'Enter') {
             this.changeTodoText()
+
+        }
+        if (event.key === 'Escape') {
+            this.setState({ canEdit: false })
         }
     }
 
-    changeTodoText = () => {
+    changeTodoText = () => { // onBlur
         const { currentId, editValue } = this.state
         this.setState(state => {
             const editable = state.todos.find(todo => todo.id === currentId)
@@ -136,7 +141,8 @@ export default class TodoList extends React.Component {
         })
     }
 
-    componentDidUpdate() {
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        // localStorage.setItem('state', JSON.stringify(snapshot))
         const todoEdit = document.querySelector('.todo-edit')
         if (todoEdit) {
             todoEdit.focus()
@@ -146,6 +152,26 @@ export default class TodoList extends React.Component {
 
     componentDidMount() {
         this.inputField.current.focus()
+        this.restoreState()
+    }
+
+    componentWillUpdate(nextProps, nextState) {
+        localStorage.setItem('state', JSON.stringify(nextState))
+    }
+
+    componentWillMount() {
+        this.restoreState()
+    }
+
+    // getSnapshotBeforeUpdate(prevProps, prevState) {
+    //     return prevState
+    // }
+
+    restoreState() {
+        if (localStorage.getItem('state')) {
+            const storedState = JSON.parse(localStorage.getItem('state'))
+            this.setState(storedState)
+        }
     }
 
     render() {

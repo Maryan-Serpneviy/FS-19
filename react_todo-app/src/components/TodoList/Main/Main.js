@@ -57,7 +57,7 @@ Main.propTypes = {
     checkAllTodos: PropTypes.func.isRequired,
     // edit
     canEdit: PropTypes.bool.isRequired,
-    current: PropTypes.number.isRequired,
+    current: PropTypes.number,
     editValue: PropTypes.string.isRequired,
     handleTodoEdit: PropTypes.func.isRequired,
     editTodo: PropTypes.func.isRequired,
