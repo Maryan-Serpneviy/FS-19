@@ -4,10 +4,6 @@ class Gallery {
     constructor(container, bigImage) {
         this.container = container;
         this.bigImage = bigImage;
-
-        this.onClickHandler = this.onClickHandler.bind(this);
-        this.onKeyPress = this.onKeyPress.bind(this);
-        this.onScroll = this.onScroll.bind(this);
     }
 
     currIndex = 0;
@@ -36,29 +32,30 @@ class Gallery {
         this.currIndex--;
     }
 
-    onClickHandler(e) {
-        if (!e.target.classList.contains('gallery__img')) { return }
-        e.preventDefault();
+    onClickHandler = event => {
+        event.preventDefault();
+        const { target } = event;
+        if (!target.classList.contains('gallery__img')) { return }
 
-        this.currIndex =  e.target.parentNode.parentNode.id.slice(length - 1);
+        //this.currIndex =  target.parentNode.parentNode.id.slice(length - 1);
+        this.currIndex =  target.parentNode.parentNode.id.match(/\d+/)[0];
 
         this.prevInactive();
-        e.target.parentNode.parentNode.classList.add('active');
-        this.bigImage.src = e.target.src.replace('jpeg', 'png').replace('-thumb', '');
+        target.parentNode.parentNode.classList.add('active');
+        this.bigImage.src = target.src.replace('jpeg', 'png').replace('-thumb', '');
     }
     
-    onKeyPress(e) {
-        e.preventDefault();
-    
+    onKeyPress = event => {
+        const { code } = event;
         const prevKeys = new Set(['ArrowLeft', 'ArrowDown', 'KeyA', 'KeyS']);
         const nextKeys = new Set(['ArrowRight', 'ArrowUp', 'KeyD', 'KeyW']);
         
-        if (prevKeys.has(e.code)) { this.togglePrevPic() }
-        if (nextKeys.has(e.code)) { this.toggleNextPic() }
+        if (prevKeys.has(code)) { this.togglePrevPic() }
+        if (nextKeys.has(code)) { this.toggleNextPic() }
     };
 
-    onScroll(e) {
-        e.deltaY > 0 ? this.toggleNextPic() : this.togglePrevPic();
+    onScroll = event => {
+        event.deltaY > 0 ? this.toggleNextPic() : this.togglePrevPic();
     }
 }
 
