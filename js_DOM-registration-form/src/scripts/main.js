@@ -17,32 +17,16 @@ submit.style.background = 'lightgray';
 
 const registration = new Form(form, name, phone, region, city, anonymous, submit);
 // name
-name.addEventListener('input', () => {
-    registration.validateName();
-});
-name.addEventListener('focus', () => {
-    registration.focusName();
-});
+name.addEventListener('input', registration.validateName);
+name.addEventListener('focus', registration.focusName);
 // phone
-phone.addEventListener('input', () => {
-    registration.validatePhone();
-});
-phone.addEventListener('focus', () => {
-    registration.focusPhone();
-});
+phone.addEventListener('input', registration.validatePhone);
+phone.addEventListener('focus', registration.focusPhone);
 // region
-region.addEventListener('change', () => {
-    registration.validateRegion();
-});
+region.addEventListener('change', registration.validateRegion);
 // city
-city.addEventListener('change', () => {
-    registration.validateCity();
-});
+city.addEventListener('change', registration.validateCity);
 // anonymous
-anonymous.addEventListener('change', () => {
-    registration.setAnonymous();
-});
+anonymous.addEventListener('change', registration.setAnonymous);
 // submit
-form.addEventListener('change', () => {
-    registration.enableSubmit();
-});
+form.addEventListener('change', registration.enableSubmit);

@@ -17,7 +17,7 @@ export default class Form {
     regionSelected = false;
     citySelected = false;
 
-    validateName() {
+    validateName = () => {
         // using arrays
         if (false) {
             const nameParts = this.name.value.trim().split(' ')
@@ -42,11 +42,11 @@ export default class Form {
         }
     }
 
-    focusName() {
+    focusName = () => {
         this.validName ? this.name.className = 'valid' : this.name.className = 'invalid';
     }
 
-    validatePhone() {
+    validatePhone = () => {
         if (this.phone.value.match(Const.RegExp.phone) &&
             this.phone.value.length < Const.MAX_DIGITS) {
             this.validPhone = true;
@@ -57,14 +57,14 @@ export default class Form {
         }
     }
 
-    focusPhone() {
+    focusPhone = () => {
         if (!this.phone.value) {
             this.phone.value = '+380';
         }
         this.validPhone ? this.phone.className = 'valid' : this.phone.className = 'invalid';
     }
 
-    validateRegion() {
+    validateRegion = () => {
         if (this.region.value !== this.region.children[0].textContent &&
             this.region.value !== this.region.children[1].textContent) {
 
@@ -83,7 +83,7 @@ export default class Form {
         }
     }
 
-    validateCity() {
+    validateCity = () => {
         if (this.city.value !== this.city.children[0].textContent) {
             this.citySelected = true;
             this.city.className = 'valid';
@@ -93,7 +93,7 @@ export default class Form {
         }
     }
 
-    setAnonymous() {
+    setAnonymous = () => {
         if (!this.phone.disabled) {
             this.validPhone = true;
             this.phone.disabled = true;
@@ -107,7 +107,7 @@ export default class Form {
         }
     }
 
-    enableSubmit() {
+    enableSubmit = () => {
         if (this.validName && this.validPhone && this.regionSelected && this.citySelected) {
             this.submit.disabled = false;
             this.submit.style = Const.valid;
