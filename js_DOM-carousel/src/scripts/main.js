@@ -44,26 +44,28 @@ class Carousel {
         this.showNext();
     }
 
-    onClickHandler(e) {
-        if (e.target === this.prev) { this.togglePrev(); }
-        if (e.target === this.next) { this.toggleNext() }
-        if (e.target.classList.contains('carousel__dot')) {
-            this.onDotClick(e.target);
+    onClickHandler = event => {
+        const { target } = event;
+        if (target === this.prev) { this.togglePrev(); }
+        if (target === this.next) { this.toggleNext() }
+        if (target.classList.contains('carousel__dot')) {
+            this.onDotClick(target);
         }
     };
 
-    onKeyPress(e) {
-        e.preventDefault();
+    onKeyPress = event => {
+        event.preventDefault();
+        const { code } = event;
 
         const prevKeys = new Set(['ArrowLeft', 'ArrowDown', 'KeyA', 'KeyS']);
         const nextKeys = new Set(['ArrowRight', 'ArrowUp', 'KeyD', 'KeyW']);        
     
-        if (prevKeys.has(e.code)) { this.togglePrev() }
-        if (nextKeys.has(e.code)) { this.toggleNext() }
+        if (prevKeys.has(code)) { this.togglePrev() }
+        if (nextKeys.has(code)) { this.toggleNext() }
     };
 
-    onScroll(e) {
-        e.deltaY > 0 ? this.toggleNext() : this.togglePrev();
+    onScroll = event => {
+        event.deltaY > 0 ? this.toggleNext() : this.togglePrev();
     };
 }
 
@@ -74,6 +76,6 @@ const carouselDots = carousel.querySelectorAll('.carousel__dot');
 
 const twitterCards = new Carousel(carouselPrev, carouselNext, carouselDots);
 
-carousel.addEventListener('click', e => twitterCards.onClickHandler(e));
-document.addEventListener('keydown', e => twitterCards.onKeyPress(e));
-document.addEventListener('wheel', e => twitterCards.onScroll(e));
+carousel.addEventListener('click', twitterCards.onClickHandler);
+document.addEventListener('keydown', twitterCards.onKeyPress);
+document.addEventListener('wheel', twitterCards.onScroll);
