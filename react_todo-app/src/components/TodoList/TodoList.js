@@ -50,7 +50,8 @@ export default class TodoList extends React.Component {
                     // new todo
                     nextTodo: state.nextTodo + 1,
                     todoInput: '',
-                    canAdd: false
+                    canAdd: false,
+                    confirm: false
                 }
             })
 
@@ -59,6 +60,7 @@ export default class TodoList extends React.Component {
 
     handleTodoCheck = event => {
         const { id } = event.target
+        this.hideConfirm()
         this.setState(state => {
             for (const todo of state.todos) {
                 if (todo.id === Number(id)) {
@@ -71,10 +73,15 @@ export default class TodoList extends React.Component {
 
     removeTodo = () => {
         const updatedTodos = this.state.todos.filter(todo => todo.id !== this.state.currentId)
-        this.setState({ todos: updatedTodos, confirm: false })
+        this.setState({
+            todos: updatedTodos,
+            nextTodo: this.state.nextTodo - 1, // decrement id counter
+            confirm: false
+        })
     }
 
     checkAllTodos = () => {
+        this.hideConfirm()
         this.setState(state => {
             state.allChecked = !state.allChecked
             for (const todo of state.todos) {
@@ -85,13 +92,17 @@ export default class TodoList extends React.Component {
     }
 
     setFilter = event => { // All / Active / Completed
-        this.setState({ filter: event.target.innerText })
+        this.setState({
+            filter: event.target.innerText,
+            confirm: false
+        })
     }
 
     clearCompleted = () => {
         this.setState(state => {
             return {
                 todos: state.todos.filter(todo => !todo.completed),
+                nextTodo: 0, // reset id counter
                 confirm: false
             }
         })
@@ -106,23 +117,26 @@ export default class TodoList extends React.Component {
         })
     }
 
+    hideConfirm = () => this.setState({ confirm: false })
+
     handleTodoEdit = event => {
         this.setState({ editValue: event.target.value })
     }
 
     editTodo = event => {
         const id = Number(/\d+/.exec(event.target.htmlFor)[0])
+        const isCompleted = this.state.todos.find(todo => todo.id === id).completed
         this.setState({
-            canEdit: true,
+            canEdit: !isCompleted, // disable edit if completed
             currentId: id,
-            editValue: event.target.innerText
+            editValue: event.target.innerText,
+            confirm: false
         })
     }
 
     finishTodoEdit = event => {
         if (event.key === 'Enter') {
             this.changeTodoText()
-
         }
         if (event.key === 'Escape') {
             this.setState({ canEdit: false })
@@ -142,7 +156,6 @@ export default class TodoList extends React.Component {
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        // localStorage.setItem('state', JSON.stringify(snapshot))
         const todoEdit = document.querySelector('.todo-edit')
         if (todoEdit) {
             todoEdit.focus()
@@ -152,7 +165,6 @@ export default class TodoList extends React.Component {
 
     componentDidMount() {
         this.inputField.current.focus()
-        this.restoreState()
     }
 
     componentWillUpdate(nextProps, nextState) {
@@ -160,14 +172,6 @@ export default class TodoList extends React.Component {
     }
 
     componentWillMount() {
-        this.restoreState()
-    }
-
-    // getSnapshotBeforeUpdate(prevProps, prevState) {
-    //     return prevState
-    // }
-
-    restoreState() {
         if (localStorage.getItem('state')) {
             const storedState = JSON.parse(localStorage.getItem('state'))
             this.setState(storedState)
@@ -189,6 +193,7 @@ export default class TodoList extends React.Component {
                         value={this.state.todoInput}
                         onChange={this.handleNewTodo}
                         onKeyUpCapture={this.addNewTodo}
+                        onFocus={this.hideConfirm}
                         ref={this.inputField}
                         maxLength={40}
                         className="new-todo"
