@@ -1,0 +1,54 @@
+.PeopleTable {
+    text-align: center;
+    margin: 0 auto;
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px solid rgb(65, 88, 218);
+    padding: 10px;
+}
+
+tr {
+    cursor: pointer;
+}
+
+.Person--selected {
+    color: lightblue;
+    background-color: rgb(65, 88, 218)
+}
+
+.Person--selected td {
+    border-color: lightblue;
+}
+
+input[type=text], button {
+    margin-bottom: 25px;
+    margin-right: 10px;
+    border: 1px solid rgb(65, 88, 218);
+    color: rgb(65, 88, 218);
+    font-weight: bold;
+    font-size: 16px;
+    background-color: lightblue;
+    padding: 5px;
+}
+
+button {
+    cursor: pointer;
+    margin-left: 15px;
+}
+
+legend {
+    margin-bottom: 20px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+label {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+input[type=text]::placeholder {
+    color: rgb(65, 88, 218);
+}
