@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import './App.css'
 import GoodsList from './components/GoodsList/GoodsList'
 
@@ -15,28 +15,18 @@ const goods = [
   'Garlic',
 ]
 
-export default class App extends React.Component {
-  state = {
-    display: false
+export default function App() {
+  const [display, setDisplay] = useState(false)
+
+  function handleStart() {
+    setDisplay(true)
   }
 
-  handleStart = () => {
-    this.setState({
-      display: !this.state.display
-    })
-  }
-
-  componentDidUpdate() {
-    document.querySelector('#start').remove()
-  }
-
-  render() {
-    return (
-      <div className="App">
-        <h1>React sort list</h1>
-        <button id="start" onClick={this.handleStart}>Start</button>
-        {this.state.display && <GoodsList list={goods} />}
-      </div>
-    )
-  }
+  return (
+    <div className="App">
+      <h1>React sort list</h1>
+      {!display && <button id="start" onClick={handleStart}>Start</button>}
+      {display && <GoodsList list={goods} />}
+    </div>
+  )
 }

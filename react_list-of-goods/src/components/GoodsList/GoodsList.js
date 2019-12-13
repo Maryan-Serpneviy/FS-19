@@ -1,69 +1,55 @@
-import React from 'react'
+import React, {useState} from 'react'
 import './GoodsList.css'
 
-export default class GoodsList extends React.Component {
-    state = {
-        sourceList: [...this.props.list],
-        list: [...this.props.list],
-        selected: null
-    }
+export default function GoodsList(props) {
+    const unsortedList = [...props.list]
+    const [list, setList] = useState([...props.list])
+    const [selected, setSelected] = useState(1)
     
-    handleReverse = () => {
-        this.setState(prev => {
-            return prev.list.reverse()
-        })
+    function handleReverse() {
+        setList([...list].reverse()) // we must create a new copy to trigger re-render
     }
 
-    sortByAlphabet = () => {
-        this.setState(prev => {
-            return prev.list.sort()
-        })
+    function sortByAlphabet() {
+        setList([...list].sort()) // we must create a new copy to trigger re-render
     }
 
-    sortByLength = () => {
-        this.setState(prev => {
-            return prev.list.sort((a, b) => b.length - a.length)
-        })
+    function sortByLength() {
+        setList([...list].sort((a, b) => b.length - a.length)) // we must create a new copy to trigger re-render
     }
 
-    handleReset = () => {
-        this.setState({
-            list: [...this.state.sourceList]
-        })
-        document.querySelector('select').value = 1
+    function handleReset() {
+        setList(unsortedList)
+        setSelected(1)
     }
 
-    handleSelect = e => {
-        const filtered = this.state.sourceList.filter(li => li.length >= e.target.value)
-        this.setState({
-            list: filtered
-        })
+    function handleSelect(event) {
+        const { value } = event.target
+        setList(unsortedList.filter(li => li.length >= value))
+        setSelected(value)
     }
 
-    render() {
-        const selectOptions = []
-        for (let i = 1; i <= 10; i++) {
-            selectOptions.push(i)
-        }
-
-        return (
-            <div className="goods-list">
-                <ul className="goods-list__list">
-                    {this.state.list.map(li => (
-                        <li className="goods-list__list-item" key={li}>{li}</li>
-                    ))}
-                </ul>
-                <button onClick={this.handleReverse}>Reverse</button>
-                <button onClick={this.sortByAlphabet}>Sort alphabet</button>
-                <button onClick={this.sortByLength}>Sort by length</button>
-                <button onClick={this.handleReset}>Reset</button>
-                <br />
-                <select onChange={this.handleSelect}>
-                    {selectOptions.map(option => (
-                        <option key={option}>{option}</option>
-                    ))}
-                </select>
-            </div>
-        )
+    const selectOptions = []
+    for (let i = 1; i <= props.list.length; i++) {
+        selectOptions.push(i)
     }
+    return (
+        <div className="goods-list">
+            <ul className="goods-list__list">
+                {list.map(li => (
+                    <li className="goods-list__list-item" key={li}>{li}</li>
+                ))}
+            </ul>
+            <button onClick={handleReverse}>Reverse</button>
+            <button onClick={sortByAlphabet}>Sort alphabet</button>
+            <button onClick={sortByLength}>Sort by length</button>
+            <button onClick={handleReset}>Reset</button>
+            <br />
+            <select value={selected} onChange={handleSelect}>
+                {selectOptions.map(option => (
+                    <option key={option}>{option}</option>
+                ))}
+            </select>
+        </div>
+    )
 }
