@@ -1,46 +1,44 @@
-import React from 'react'
-
+import React, {useState, useEffect} from 'react'
+import PropTypes from 'prop-types'
 import Comment from './Comment'
 import getComments from '../api/comments'
 
-export default class CommentList extends React.Component {
-    state = {
-        isLoaded: false,
-        comments: []
-    }
+export default function CommentList(props) {
+    const [isLoaded, setLoaded] = useState(false)
+    const [comments, setComments] = useState([])
 
-    componentDidMount() {
-        getComments()
-            .then(comments => {
-                this.setState({ isLoaded: true, comments })
-            })
-    }
+    useEffect(() => {
+        getComments().then(data => {
+            setLoaded(true)
+            setComments(data)
+        })
+    }, [])
 
-    render() {
-        const { isLoaded, comments } = this.state
-
-        if (isLoaded) {
-            return (
-                <div className="comments">
-                    <h2>
-                        <em>Comments: </em>
-                    </h2>
-                    <ul className="comments-list">
-                        {comments.filter(comment => this.props.post.postId === comment.postId)
-                            .map(comment => (
-                                <Comment
-                                    key={comment.id}
-                                    content={comment.body}
-                                    name={comment.name}
-                                    email={comment.email}
-                                />
-                            ))
-                        }
-                    </ul>
-                </div>
-            )
-        } else {
-            return <div style={{ fontSize: 20 }}>Loading comments...</div>
-        }
+    if (isLoaded) {
+        return (
+            <div className="comments">
+                <h2>
+                    <em>Comments: </em>
+                </h2>
+                <ul className="comments-list">
+                    {comments.filter(comment => props.post.postId === comment.postId)
+                        .map(comment => (
+                            <Comment
+                                key={comment.id}
+                                content={comment.body}
+                                name={comment.name}
+                                email={comment.email}
+                            />
+                        ))
+                    }
+                </ul>
+            </div>
+        )
+    } else {
+        return <div style={{ fontSize: 20 }}>Loading comments...</div>
     }
+}
+
+CommentList.propTypes = {
+    post: PropTypes.object.isRequired
 }

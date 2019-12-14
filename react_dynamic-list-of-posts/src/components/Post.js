@@ -1,67 +1,67 @@
-import React from 'react'
-import Markdown from 'react-mark'
-
+import React, {useState, useEffect, useRef} from 'react'
+import PropTypes from 'prop-types'
 import User from './User'
 import getUsers from '../api/users'
-
 import CommentList from './CommentList'
 
-export default class Post extends React.Component {
-    state = {
-        isLoaded: false,
-        users: []
-    }
-    title = React.createRef()
-    body = React.createRef()
+export default function Post(props) {
+    const [isLoaded, setLoaded] = useState(false)
+    const [users, setUsers] = useState([])
 
-    componentDidMount() {
-        getUsers()
-            .then(users => {
-                this.setState({ isLoaded: true, users })
-            })
+    const title = useRef()
+    const body = useRef()
+
+    useEffect(() => {
+        getUsers().then(data => {
+            setLoaded(true)
+            setUsers(data)
+        })
+    }, [])
+
+    if (props.inputVal) {
+        const markedTitle = title.current.textContent
+        .replace(new RegExp(props.inputVal, "gi"), `<mark>${props.inputVal}</mark>`)
+        title.current.innerHTML = markedTitle
+
+        const markedBody = body.current.textContent
+        .replace(new RegExp(props.inputVal, "gi"), `<mark>${props.inputVal}</mark>`)
+        body.current.innerHTML = markedBody
     }
 
-    componentWillReceiveProps() {
-        const highlitedTitle = this.title.current.textContent
-            .replace(new RegExp(this.props.matchTitle, "gi"), `<mark>${this.props.matchTitle}</mark>`)
-        this.title.current.innerHTML = highlitedTitle
-        
-        const highlitedBody = this.body.current.textContent
-            .replace(new RegExp(this.props.matchBody, "gi"), `<mark>${this.props.matchBody}</mark>`)
-        this.body.current.innerHTML = highlitedBody
+    if (isLoaded) {
+        return (
+            <div className="post">
+                {/* post */}
+                <h2>
+                    <em>Post:</em>
+                </h2>
+                <h2 ref={title}>{props.title}</h2>
+                <p ref={body}>{props.body}</p>
+                {/* user */}
+                {users.filter(user => user.id === props.userId)
+                    .map(user => (
+                        <User
+                            key={user.id}
+                            name={user.name}
+                            email={user.email}
+                            street={user.address.street}
+                            suite={user.address.suite}
+                            city={user.address.city}
+                        />
+                    ))
+                }
+                <CommentList post={props} />
+            </div>
+        )
+    } else {
+        return <div>Loading user...</div>
     }
+}
 
-    render() {
-        const { isLoaded, users } = this.state
-
-        if (isLoaded) {
-            return (
-                <div className="post">
-                    {/* post */}
-                    <h2>
-                        <em>Post:</em>
-                    </h2>
-                    <h2 ref={this.title}>{this.props.title}</h2>
-                    <p ref={this.body}>{this.props.body}</p>
-                    {/* user */}
-                    {users.filter(user => user.id === this.props.userId)
-                        .map(user => (
-                            <User
-                                key={user.id}
-                                name={user.name}
-                                email={user.email}
-                                street={user.address.street}
-                                suite={user.address.suite}
-                                city={user.address.city}
-                            />
-                        ))
-                    }
-                    <CommentList post={this.props} />
-                </div>
-            )
-        } else {
-            return <div>Loading user...</div>
-        }
-        
-    }
+Post.propTypes = {
+    postId: PropTypes.number.isRequired,
+    userId: PropTypes.number.isRequired,
+    title: PropTypes.string.isRequired,
+    body: PropTypes.string.isRequired,
+    inputVal: PropTypes.string.isRequired
 }
