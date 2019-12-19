@@ -21,40 +21,45 @@ export default class TodoList extends React.Component {
         action: null,
         currentId: null
     }
+
     inputField = React.createRef()
 
     handleNewTodo = event => {
         this.setState({ todoInput: event.target.value })
     }
 
-    addNewTodo = event => {
+    setAddBtn() {
         const { todoInput, todos } = this.state
-        const { id } = event.target
 
-        todoInput.length > MIN_LENGTH // if not required length - btn new is disabled
+        todoInput.length > MIN_LENGTH && // if not required length - btn new is disabled
+        !todos.find(todo => todo.content === todoInput.trim())
             ? this.setState({ canAdd: true })
             : this.setState({ canAdd: false })
+    }
+
+    addNewTodo = event => {
+        const { todoInput, nextTodo, todos } = this.state
+        const { id } = event.target
+
+        this.setAddBtn()
         
         if (event.key === 'Enter' && todoInput.length > MIN_LENGTH && todoInput.trim() || // on enter
-            id === 'btn-new' && todoInput.length > MIN_LENGTH && todoInput.trim()) { // on btn new click
-            this.inputField.current.focus()
+            id === 'btn-new' && todoInput.length > MIN_LENGTH && todoInput.trim() && // on btn new click
+            !todos.find(todo => todo.content === todoInput.trim())) { // make sure same todo cannot be added
 
-            this.setState(state => {
-                todos.push({
-                    id: state.nextTodo,
+            this.inputField.current.focus()
+            this.setState({
+                todos: [
+                    ...todos, {
+                    id: nextTodo,
                     content: todoInput,
                     completed: false
-                })
-                return {
-                    todos,
-                    // new todo
-                    nextTodo: state.nextTodo + 1,
-                    todoInput: '',
-                    canAdd: false,
-                    confirm: false
-                }
+                }],
+                nextTodo: nextTodo + 1,
+                todoInput: '',
+                canAdd: false,
+                confirm: false
             })
-
         }
     }
 
@@ -164,6 +169,7 @@ export default class TodoList extends React.Component {
     }
 
     componentDidMount() {
+        this.setAddBtn()
         this.inputField.current.focus()
     }
 
