@@ -1,0 +1,5 @@
+store.subscribe(() => {
+    render()
+})
+
+render()
