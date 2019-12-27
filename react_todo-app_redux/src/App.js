@@ -1,8 +1,8 @@
 import React from 'react'
-import TodosContainer from './components/TodoList/TodosContainer'
 import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 import Store from './Store'
+import TodosContainer from './components/TodoList/TodosContainer'
 
 const store = createStore(Store.reducer)
 

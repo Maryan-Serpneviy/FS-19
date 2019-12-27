@@ -3,25 +3,24 @@ import PropTypes from 'prop-types'
 import './Footer.scss'
 
 export default function Footer(props) {
-    function changeFilter(event) { // All / Active / Completed
-        props.changeFilter(event.target.innerText)
-    }
+    const completed = props.todos.some(todo => todo.completed)
+    const todosLeft = props.todos.filter(todo => !todo.completed).length
 
     return (
         <footer className="footer" style={{ filter: 'block' }}>
-            <span className="todo-count">{props.todosLeft} todos left</span>
+            <span className="todo-count">{todosLeft} todos left</span>
                 <ul className="filters">
                     {['All', 'Active', 'Completed'].map(li => (
                         <li key={li}>
                             <a
                                 href={`#/${li}`}
                                 className={props.filter === li ? 'selected' : ''}
-                                onClick={props.changeFilter}
+                                onClick={e => props.changeFilter(e.target.innerText)}
                             >{li}</a>
                         </li>
                     ))}
                 </ul>
-                {props.completed ? <button
+                {completed ? <button
                     onClick={props.confirmAction}
                     className="clear-completed"
                     name="clear"
@@ -33,9 +32,7 @@ export default function Footer(props) {
 }
 
 Footer.propTypes = {
-    todosLeft: PropTypes.number.isRequired,
     filter: PropTypes.oneOf(['All', 'Active', 'Completed']).isRequired,
     changeFilter: PropTypes.func.isRequired,
-    completed: PropTypes.bool.isRequired,
     confirmAction: PropTypes.func.isRequired
 }

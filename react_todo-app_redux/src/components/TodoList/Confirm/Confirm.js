@@ -25,8 +25,9 @@ export default function Confirm(props) {
 }
 
 Confirm.propTypes = {
-    confirmAction: PropTypes.func.isRequired,
+    action: PropTypes.string.isRequired,
+    currentId: PropTypes.number.isRequired,
     removeTodo: PropTypes.func.isRequired,
     clearCompleted: PropTypes.func.isRequired,
-    action: PropTypes.string.isRequired
+    confirmAction: PropTypes.func.isRequired
 }

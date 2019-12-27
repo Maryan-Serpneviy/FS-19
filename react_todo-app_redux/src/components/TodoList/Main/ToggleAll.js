@@ -1,15 +1,15 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-export default function ToggleAll({ checked, checkAllTodos }) {
+export default function ToggleAll({ todos, checkAll }) {
     return (
         <>
             <input
                 type="checkbox"
                 id="toggle-all"
                 className="toggle-all"
-                checked={checked}
-                onChange={checkAllTodos}
+                checked={todos.every(todo => todo.completed)}
+                onChange={checkAll}
             />
             <label htmlFor="toggle-all">Mark all as complete</label>
         </>
@@ -17,6 +17,6 @@ export default function ToggleAll({ checked, checkAllTodos }) {
 }
 
 ToggleAll.propTypes = {
-    checked: PropTypes.bool.isRequired,
-    checkAllTodos: PropTypes.func.isRequired
+    todos: PropTypes.array.isRequired,
+    checkAll: PropTypes.func.isRequired
 }

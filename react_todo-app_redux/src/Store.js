@@ -74,10 +74,10 @@ export default class Store {
                     todos: state.todos.map(todo => {
                         return {
                             ...todo,
-                            completed: !action.allChecked
+                            completed: !state.allChecked
                         }
                     }),
-                    allChecked: !action.allChecked,
+                    allChecked: !state.allChecked,
                     confirm: false
                 }
             case EDIT:
@@ -165,7 +165,7 @@ export default class Store {
         }
     }
 
-    static setEditInput(newInput) {
+    static handleEditInput(newInput) {
         return {
             type: EDIT_INPUT,
             newInput

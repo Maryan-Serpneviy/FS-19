@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react'
 import './TodoList.scss'
-import Main from './Main/Main'
-import Footer from './Footer/Footer'
-import Confirm from './Confirm/Confirm'
+import MainContainer from './Main/MainContainer'
+import FooterContainer from './Footer/FooterContainer'
+import ConfirmContainer from './Confirm/ConfirmContainer'
 
 export default function TodoList(props) {
     // const [todoInput, setTodoInput] = useState(localStorage.getItem('todoInput') || '')
@@ -15,68 +15,41 @@ export default function TodoList(props) {
     const MIN_LENGTH = 4
     const inputField = useRef()
 
-    function handleNewTodo(event) {
-        props.updateInput(event.target.value)
-    }
+    const handleTodoInput = e => props.updateInput(e.target.value)
 
-    function setAddBtn() {
+    const setAddBtn = () => {
         props.todoInput.length > MIN_LENGTH && // if not required length - btn new is disabled
         !props.todos.find(todo => todo.content === props.todoInput.trim())
             ? setCanAdd(true)
             : setCanAdd(false)
     }
 
-    function addNewTodo(event) {
-        const { id, value } = event.target
-
+    const addNewTodo = e => {
+        const { value } = e.target
         setAddBtn()
-        if (event.key === 'Enter' || id === 'btn-new') {
-            if (props.todoInput.length > MIN_LENGTH && value.trim() &&
-               !props.todos.find(todo => todo.content === value.trim())) { // check for matches
 
-                props.add(props.todoInput)
-                inputField.current.focus()
-            }
+        if (e.key === 'Enter' && value.trim() &&
+            props.todoInput.length > MIN_LENGTH &&
+            !props.todos.find(todo => todo.content === value.trim())) { // check for matches
+
+            props.add(props.todoInput)
+            inputField.current.focus()
         }
     }
 
-    function checkAllTodos() { // HERE !!!!!1111
-        props.checkAll(props.allChecked)
+    const handleBtnNewTodo = () => {
+        if (props.todoInput.trim() &&
+            props.todoInput.length > MIN_LENGTH &&
+            !props.todos.find(todo => todo.content === props.todoInput.trim())) { // check for matches
+
+            props.add(props.todoInput)
+            inputField.current.focus()
+        }
     }
 
-    function changeFilter(event) { // All / Active / Completed
-        props.changeFilter(event.target.innerText)
-    }
-
-    function confirmAction(event) {
-        const { id, name } = event.target
+    const confirmAction = e => {
+        const { id, name } = e.target
         props.confirmAction(props.confirm, id, name)
-    }
-
-    function handleTodoEdit(event) {
-        props.setEditInput(event.target.value)
-    }
-
-    function editTodo(event) {
-        const id = Number(/\d+/.exec(event.target.htmlFor)[0])
-        const isCompleted = props.todos.find(todo => todo.id === id).completed
-        const todoText = event.target.innerText
-        props.editTodo(id, isCompleted, todoText)
-    }
-
-    function finishTodoEdit(event) {
-        if (event.key === 'Enter') {
-            changeTodoText()
-        }
-        if (event.key === 'Escape') {
-            props.setEditStatus(false)
-        }
-    }
-
-    function changeTodoText() { // onBlur
-        const editable = props.todos.find(todo => todo.id === props.currentId)
-        editable.content = props.editInput
-        props.setEditStatus(false)
     }
 
     useEffect(() => {
@@ -94,18 +67,13 @@ export default function TodoList(props) {
 
     return (
         <section className="todoapp">
-            {props.confirm && <Confirm
-                currentId={props.currentId}
-                action={props.action}
-                confirmAction={confirmAction}
-                removeTodo={props.remove}
-                clearCompleted={props.clearCompleted}
-            />}
+            {props.confirm &&
+            <ConfirmContainer confirmAction={confirmAction}/>}
             <header className="header">
                 <h1>todos</h1>
                 <input
                     value={props.todoInput}
-                    onChange={handleNewTodo}
+                    onChange={handleTodoInput}
                     onKeyUpCapture={addNewTodo}
                     onFocus={props.hideConfirm}
                     ref={inputField}
@@ -114,33 +82,13 @@ export default function TodoList(props) {
                     placeholder="What needs to be done?"
                 />
                 <button
-                    onPointerUp={addNewTodo}
+                    onPointerUp={handleBtnNewTodo}
                     className={canAdd ? 'add-todo_active' : 'add-todo'}
                     id="btn-new"
                 >+</button>
             </header>
-            <Main
-                todos={props.todos}
-                confirmAction={confirmAction}
-                handleTodoCheck={props.check}
-                checkAllTodos={props.checkAll} // here
-                filter={props.filter}
-                // edit
-                currentId={props.currentId}
-                canEdit={props.canEdit}
-                editInput={props.editInput}
-                handleTodoEdit={handleTodoEdit}
-                editTodo={editTodo}
-                finishTodoEdit={finishTodoEdit}
-                changeTodoText={changeTodoText}
-            />
-            <Footer
-                todosLeft={props.todos.filter(todo => !todo.completed).length}
-                completed={props.todos.some(todo => todo.completed)}
-                filter={props.filter}
-                changeFilter={changeFilter}
-                confirmAction={confirmAction}
-            />
+            <MainContainer confirmAction={confirmAction}/>
+            <FooterContainer confirmAction={confirmAction}/>
         </section>
     )
 }
