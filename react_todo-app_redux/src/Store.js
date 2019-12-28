@@ -1,15 +1,4 @@
-const INPUT = 'INPUT'
-const ADD = 'ADD'
-const CHECK = 'CHECK'
-const CHECK_ALL = 'CHECK_ALL'
-const EDIT = 'EDIT'
-const EDIT_INPUT = 'EDIT_INPUT'
-const EDIT_STATUS = 'EDIT_STATUS'
-const REMOVE = 'REMOVE'
-const FILTER_CHANGE = 'FILTER_CHANGE'
-const CLEAR = 'CLEAR'
-const CONFIRM = 'CONFIRM'
-const HIDE_CONFIRM = 'HIDE_CONFIRM'
+import Action from './constants'
 
 const initialState = {
     todoInput: '',
@@ -29,12 +18,12 @@ const initialState = {
 export default class Store {
     static reducer(state = initialState, action) {
         switch (action.type) {
-            case INPUT:
+            case Action.INPUT:
                 return {
                     ...state,
                     todoInput: action.newInput
                 }
-            case ADD:
+            case Action.ADD:
                 return {
                     ...state,
                     todos: [...state.todos, {
@@ -42,19 +31,19 @@ export default class Store {
                         content: action.todo,
                         completed: false
                     }],
-                    nextTodo: state.nextTodo + 1,
+                    nextTodo: state.nextTodo + 1, // increment id counter
                     todoInput: '',
                     canAdd: false,
                     confirm: false
                 }
-            case REMOVE:
+            case Action.REMOVE:
                 return {
                     ...state,
                     todos: state.todos.filter(todo => todo.id !== action.id),
                     nextTodo: state.nextTodo - 1, // decrement id counter
                     confirm: false
                 }
-            case CHECK:
+            case Action.CHECK:
                 return {
                     ...state,
                     todos: state.todos.map(todo => {
@@ -68,7 +57,7 @@ export default class Store {
                     }),
                     confirm: false
                 }
-            case CHECK_ALL:
+            case Action.CHECK_ALL:
                 return {
                     ...state,
                     todos: state.todos.map(todo => {
@@ -80,7 +69,7 @@ export default class Store {
                     allChecked: !state.allChecked,
                     confirm: false
                 }
-            case EDIT:
+            case Action.EDIT:
                 return {
                     ...state,
                     currentId: action.id,
@@ -88,37 +77,37 @@ export default class Store {
                     confirm: false,
                     editInput: action.todoText
                 }
-            case EDIT_INPUT:
+            case Action.EDIT_INPUT:
                 return {
                     ...state,
                     editInput: action.newInput
                 }
-            case EDIT_STATUS:
+            case Action.EDIT_STATUS:
                 return {
                     ...state,
                     canEdit: action.status
                 }
-            case FILTER_CHANGE:
+            case Action.FILTER_CHANGE:
                 return {
                     ...state,
                     filter: action.filter,
                     confirm: false
                 }
-            case CLEAR:
+            case Action.CLEAR:
                 return {
                     ...state,
                     confirm: false,
                     todos: state.todos.filter(todo => !todo.completed),
                     nextTodo: 0
                 }
-            case CONFIRM:
+            case Action.CONFIRM:
                 return {
                     ...state,
                     confirm: !action.status,
                     action: action.name,
                     currentId: Number(action.id)
                 }
-            case HIDE_CONFIRM:
+            case Action.HIDE_CONFIRM:
                 return {
                     ...state,
                     confirm: false
@@ -128,89 +117,61 @@ export default class Store {
         }
     }
 
-    static updateInput(newInput) {
-        return {
-            type: INPUT,
-            newInput
-        }
-    }
+    static updateInput = newInput => ({
+        type: Action.INPUT,
+        newInput
+    })
 
-    static add(todo) {
-        return {
-            type: ADD,
-            todo
-        }
-    }
+    static add = todo => ({
+        type: Action.ADD,
+        todo
+    })
 
-    static check(id) {
-        return {
-            type: CHECK,
-            id
-        }
-    }
+    static check = id => ({
+        type: Action.CHECK,
+        id
+    })
 
-    static checkAll(allChecked) {
-        return {
-            type: CHECK_ALL,
-            allChecked
-        }
-    }
+    static checkAll = allChecked => ({
+        type: Action.CHECK_ALL,
+        allChecked
+    })
 
-    static edit(id, isCompleted, todoText) {
-        return {
-            type: EDIT,
-            id,
-            isCompleted,
-            todoText
-        }
-    }
+    static edit = (id, isCompleted, todoText) => ({
+        type: Action.EDIT,
+        id,
+        isCompleted,
+        todoText
+    })
 
-    static handleEditInput(newInput) {
-        return {
-            type: EDIT_INPUT,
-            newInput
-        }
-    }
+    static handleEditInput = newInput => ({
+        type: Action.EDIT_INPUT,
+        newInput
+    })
 
-    static setEditStatus(status) {
-        return {
-            type: EDIT_STATUS,
-            status
-        }
-    }
+    static setEditStatus = status => ({
+        type: Action.EDIT_STATUS,
+        status
+    })
 
-    static remove(id) {
-        return {
-            type: REMOVE,
-            id
-        }
-    }
+    static remove = id => ({
+        type: Action.REMOVE,
+        id
+    })
 
-    static changeFilter(filter) {
-        return {
-            type: FILTER_CHANGE,
-            filter
-        }
-    }
+    static changeFilter = filter => ({
+        type: Action.FILTER_CHANGE,
+        filter
+    })
 
-    static clearCompleted() {
-        return {
-            type: CLEAR
-        }
-    }
+    static clearCompleted = () => ({ type: Action.CLEAR })
 
-    static confirmAction(status, id, name) {
-        return {
-            type: CONFIRM,
-            status,
-            id,
-            name
-        }
-    }
+    static confirmAction = (status, id, name) => ({
+        type: Action.CONFIRM,
+        status,
+        id,
+        name
+    })
 
-    static hideConfirm() {
-        return {
-            type: HIDE_CONFIRM
-        }
-    }
+    static hideConfirm = () => ({ type: Action.HIDE_CONFIRM })
 }
