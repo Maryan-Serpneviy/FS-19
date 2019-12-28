@@ -4,7 +4,7 @@ import { Provider } from 'react-redux'
 import Store from './Store'
 import TodosContainer from './components/TodoList/TodosContainer'
 
-const store = createStore(Store.reducer)
+export const store = createStore(Store.reducer)
 
 export default function App() {
   return (

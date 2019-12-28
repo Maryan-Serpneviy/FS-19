@@ -4,7 +4,10 @@ import TodoList from './TodoList'
 
 const mapStateToProps = state => ({
     todos: state.todos,
+    nextTodo: state.nextTodo,
     todoInput: state.todoInput,
+    filter: state.filter,
+    allChecked: state.allChecked,
     confirm: state.confirm
 })
 

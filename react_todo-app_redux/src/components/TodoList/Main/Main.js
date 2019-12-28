@@ -9,7 +9,7 @@ export default function Main(props) {
 
     const editTodo = e => {
         const id = Number(/\d+/.exec(e.target.htmlFor)[0])
-        const isCompleted = props.todos.find(todo => todo.id === id).completed
+        const isCompleted = props.todos.find(todo => todo.completed)
         const todoText = e.target.innerText
         props.editTodo(id, isCompleted, todoText)
     }

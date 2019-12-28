@@ -1,22 +1,22 @@
 import Action from './constants'
 
-const initialState = {
-    todoInput: '',
-    editInput: '',
-    nextTodo: 0,
-    todos: [],
-    filter: 'All',
-    allChecked: false,
-    completed: false,
-    canAdd: false,
-    canEdit: false,
-    confirm: false,
-    action: null,
-    currentId: null
-}
-
 export default class Store {
-    static reducer(state = initialState, action) {
+    static initialState = {
+        todoInput: '',
+        nextTodo: 0,
+        todos: [],
+        filter: 'All',
+        allChecked: false,
+        editInput: '',
+        completed: false,
+        canAdd: false,
+        canEdit: false,
+        confirm: false,
+        action: null,
+        currentId: null
+    }
+
+    static reducer(state = Store.initialState, action) {
         switch (action.type) {
             case Action.INPUT:
                 return {
@@ -70,6 +70,7 @@ export default class Store {
                     confirm: false
                 }
             case Action.EDIT:
+                console.log(action)
                 return {
                     ...state,
                     currentId: action.id,

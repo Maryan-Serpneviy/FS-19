@@ -5,11 +5,6 @@ import FooterContainer from './Footer/FooterContainer'
 import ConfirmContainer from './Confirm/ConfirmContainer'
 
 export default function TodoList(props) {
-    // const [todoInput, setTodoInput] = useState(localStorage.getItem('todoInput') || '')
-    // const [nextTodo, setNextTodo] = useState(Number(localStorage.getItem('nextTodo')) || 0)
-    // const [todos, setTodos] = useState(JSON.parse(localStorage.getItem('todos')) || [])
-    // const [filter, setFilter] = useState(localStorage.getItem('filter') || 'All')
-    // const [allChecked, setAllChecked] = useState(localStorage.getItem(Boolean('allChecked')) || false)
     const [canAdd, setCanAdd] = useState(false)
 
     const MIN_LENGTH = 4
@@ -56,14 +51,14 @@ export default function TodoList(props) {
         setAddBtn()
     }, [])
 
-    // useEffect(() => {
-    //     localStorage.setItem('todoInput', todoInput)
-    //     localStorage.setItem('nextTodo', String(nextTodo))
-    //     localStorage.setItem('todos', JSON.stringify(todos))
-    //     localStorage.setItem('filter', filter)
-    //     localStorage.setItem('allChecked', String(allChecked))
-    //     inputField.current.focus()
-    // }, [nextTodo, todos, filter, allChecked])
+    useEffect(() => {
+        localStorage.setItem('todoInput', props.todoInput)
+        localStorage.setItem('nextTodo', String(props.nextTodo))
+        localStorage.setItem('todos', JSON.stringify(props.todos))
+        localStorage.setItem('filter', props.filter)
+        localStorage.setItem('allChecked', String(props.allChecked))
+        inputField.current.focus()
+    }, [props.todoInput, props.nextTodo, props.todos, props.filter, props.allChecked])
 
     return (
         <section className="todoapp">
