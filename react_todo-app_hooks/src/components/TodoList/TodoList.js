@@ -20,7 +20,7 @@ export default function TodoList() {
     const MIN_LENGTH = 4
     const inputField = useRef()
 
-    function handleNewTodo(event) {
+    function handleTodoInput(event) {
         setTodoInput(event.target.value)
     }
 
@@ -31,15 +31,29 @@ export default function TodoList() {
             : setCanAdd(false)
     }
 
-    function addNewTodo(event) {
-        const { id } = event.target
+    function handleBtnNewTodo() {
+        if (todoInput.trim() && todoInput.length > MIN_LENGTH &&
+            !todos.find(todo => todo.content === todoInput.trim())) { // check for matches
 
+            todos.push({
+                id: nextTodo,
+                content: todoInput,
+                completed: false
+            })
+            setNextTodo(prevNextTodo => prevNextTodo + 1)
+            setTodoInput('')
+            setCanAdd(false)
+            hideConfirm()
+        }
+    }
+
+    function addNewTodo(event) {
+        const { value } = event.target
         setAddBtn()
         
-        if (event.key === 'Enter' && todoInput.length > MIN_LENGTH && todoInput.trim() || // on enter
-            id === 'btn-new' && todoInput.length > MIN_LENGTH && todoInput.trim() && // on btn new click
-            !todos.find(todo => todo.content === todoInput.trim())) {
-            inputField.current.focus()
+        if (event.key === 'Enter' && value.trim() &&
+            todoInput.length > MIN_LENGTH &&
+            !todos.find(todo => todo.content === value.trim())) { // check for matches
 
             todos.push({
                 id: nextTodo,
@@ -162,7 +176,7 @@ export default function TodoList() {
                 <h1>todos</h1>
                 <input
                     value={todoInput}
-                    onChange={handleNewTodo}
+                    onChange={handleTodoInput}
                     onKeyUpCapture={addNewTodo}
                     onFocus={hideConfirm}
                     ref={inputField}
@@ -171,7 +185,7 @@ export default function TodoList() {
                     placeholder="What needs to be done?"
                 />
                 <button
-                    onPointerUp={addNewTodo}
+                    onPointerUp={handleBtnNewTodo}
                     className={canAdd ? 'add-todo_active' : 'add-todo'}
                     id="btn-new"
                 >+</button>
