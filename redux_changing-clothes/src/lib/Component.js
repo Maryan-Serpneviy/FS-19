@@ -16,9 +16,7 @@ export class Component {
             this.state = newState
         }
         if (typeof newState === 'function') {
-            function newState(state) {
-                console.log(state)
-            }
+            console.log('working on it')
         }
     }
 }
