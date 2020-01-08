@@ -1,10 +1,9 @@
 import React from 'react'
-import { createStore } from 'redux'
 import { Provider } from 'react-redux'
-import Store from './Store'
+import configureStore from './configureStore'
 import TodosContainer from './components/TodoList/TodosContainer'
 
-export const store = createStore(Store.reducer)
+const store = configureStore()
 
 export default function App() {
   return (

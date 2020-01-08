@@ -46,7 +46,7 @@ export default function Main(props) {
                     props.filter === 'Completed' && todo.completed ||
                     props.filter === 'Active' && !todo.completed)
                     .map(todo => (
-                    <li key={todo.id} className={todo.completed ? 'completed' : ''}>
+                    <li key={todo.key} className={todo.completed ? 'completed' : ''}>
                         <div className="view">
                             {!props.canEdit && <input
                                 id={todo.id}

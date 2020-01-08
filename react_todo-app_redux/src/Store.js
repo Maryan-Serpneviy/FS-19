@@ -1,4 +1,5 @@
 import Action from './constants'
+import { v4 } from 'node-uuid'
 
 export default class Store {
     static initialState = {
@@ -28,6 +29,7 @@ export default class Store {
                     ...state,
                     todos: [...state.todos, {
                         id: state.nextTodo,
+                        key: action.key,
                         content: action.todo,
                         completed: false
                     }],
@@ -70,7 +72,6 @@ export default class Store {
                     confirm: false
                 }
             case Action.EDIT:
-                console.log(action)
                 return {
                     ...state,
                     currentId: action.id,
@@ -125,6 +126,7 @@ export default class Store {
 
     static add = todo => ({
         type: Action.ADD,
+        key: v4(),
         todo
     })
 
