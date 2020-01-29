@@ -1,23 +1,24 @@
 import { connect } from 'react-redux'
-import Store from '../../Store'
+import * as actions from '../../store/actions/todos'
 import TodoList from './TodoList'
 
 const mapStateToProps = state => ({
     todos: state.todos,
+    filtered: state.filtered,
     nextTodo: state.nextTodo,
     todoInput: state.todoInput,
-    filter: state.filter,
     allChecked: state.allChecked,
-    confirm: state.confirm
+    action: state.action,
+    currentId: state.currentId
 })
 
 const mapDispatchToProps = dispatch => ({
-    updateInput: todoInput => dispatch(Store.updateInput(todoInput)),
-    add: todoInput => dispatch(Store.add(todoInput)),
-    confirmAction: (confirm, id, name) => dispatch(Store.confirmAction(confirm, id, name)),
-    hideConfirm: () => dispatch(Store.hideConfirm())
+    updateInput: todoInput => dispatch(actions.updateInput(todoInput)),
+    add: todoInput => dispatch(actions.add(todoInput)),
+    confirmAction: (id, name) => dispatch(actions.confirmAction(confirm, id, name)),
+    removeTodo: id => dispatch(actions.remove(id)),
+    changeFilter: filter => dispatch(actions.changeFilter(filter)),
+    clearCompleted: () => dispatch(actions.clearCompleted())
 })
 
-const TodosContainer = connect(mapStateToProps, mapDispatchToProps)(TodoList)
-
-export default TodosContainer
+export default connect(mapStateToProps, mapDispatchToProps)(TodoList)

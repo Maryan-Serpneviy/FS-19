@@ -1,10 +1,13 @@
 import React, { useEffect, useRef } from 'react'
 import PropTypes from 'prop-types'
 import './Main.scss'
-import ToggleAllContainer from './ToggleAllContainer'
+import ToggleAll from './ToggleAll'
 
 export default function Main(props) {
-    const checkTodo = e => props.check(e.target.id)
+    const checkTodo = e => {
+        props.check(e.target.id)
+        props.showConfirm(false)
+    }
     const handleTodoEdit = e => props.handleEditInput(e.target.value)
 
     const editTodo = e => {
@@ -36,13 +39,17 @@ export default function Main(props) {
             editField.current.focus()
         }
     }, [props.canEdit])
-
+    
     return (
         <section className="main">
-            <ToggleAllContainer/>
+            <ToggleAll
+                todos={props.todos}
+                checkAll={props.checkAll}
+            />
             <ul className="todo-list">
-                {props.todos.filter(todo =>
-                    props.filter === 'All' ||
+                {props.todos
+                    .filter(todo =>
+                    props.filter === '' ||
                     props.filter === 'Completed' && todo.completed ||
                     props.filter === 'Active' && !todo.completed)
                     .map(todo => (
@@ -57,6 +64,7 @@ export default function Main(props) {
                             />}
                             {props.canEdit && todo.id === props.currentId
                                 ? <input
+                                    onFocus={() => props.showConfirm(false)}
                                     onChange={handleTodoEdit}
                                     onKeyDown={finishTodoEdit}
                                     onBlur={changeTodoText}
@@ -82,9 +90,9 @@ export default function Main(props) {
 
 Main.propTypes = {
     todos: PropTypes.array.isRequired,
-    filter: PropTypes.oneOf(['All', 'Active', 'Completed']).isRequired,
     check: PropTypes.func.isRequired,
     confirmAction: PropTypes.func.isRequired,
+    filter: PropTypes.oneOf(['', 'Active', 'Completed']).isRequired,
     // edit
     canEdit: PropTypes.bool.isRequired,
     currentId: PropTypes.number,

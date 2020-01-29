@@ -1,12 +1,12 @@
 import { createStore } from 'redux'
-import Store from './Store'
-import Storage from './Storage'
+import reducer from './reducers/todos'
+import Storage from '../Storage'
 import throttle from 'lodash/throttle'
 
 const configureStore = () => {
     const persistedState = Storage.loadState()
     const store = createStore(
-        Store.reducer,
+        reducer,
         persistedState
     )
 

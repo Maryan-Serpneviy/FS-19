@@ -2,10 +2,11 @@ import React, { useState, useEffect, useRef } from 'react'
 import './TodoList.scss'
 import MainContainer from './Main/MainContainer'
 import FooterContainer from './Footer/FooterContainer'
-import ConfirmContainer from './Confirm/ConfirmContainer'
+import Confirm from './Confirm/Confirm'
 
 export default function TodoList(props) {
     const [canAdd, setCanAdd] = useState(false)
+    const [showConfirm, setShowConfirm] = useState(false)
 
     const MIN_LENGTH = 4
     const inputField = useRef()
@@ -27,6 +28,7 @@ export default function TodoList(props) {
             props.todoInput.length > MIN_LENGTH &&
             !props.todos.find(todo => todo.content === value.trim())) { // check for matches
 
+            setCanAdd(false)
             props.add(props.todoInput)
             inputField.current.focus()
         }
@@ -37,6 +39,8 @@ export default function TodoList(props) {
             props.todoInput.length > MIN_LENGTH &&
             !props.todos.find(todo => todo.content === props.todoInput.trim())) { // check for matches
 
+            setCanAdd(false)
+            setShowConfirm(false)
             props.add(props.todoInput)
             inputField.current.focus()
         }
@@ -44,33 +48,40 @@ export default function TodoList(props) {
 
     const confirmAction = e => {
         const { id, name } = e.target
-        props.confirmAction(props.confirm, id, name)
+        setShowConfirm(true)
+        props.confirmAction(id, name)
     }
 
     useEffect(() => {
         setAddBtn()
+        document.addEventListener('click', event => {
+            if (showConfirm && event.target.className !== 'todoapp__confirm' || event.target.className === '') {
+                setShowConfirm(false)
+            }
+        })
     }, [])
 
     useEffect(() => {
-        localStorage.setItem('todoInput', props.todoInput)
-        localStorage.setItem('nextTodo', String(props.nextTodo))
-        localStorage.setItem('todos', JSON.stringify(props.todos))
-        localStorage.setItem('filter', props.filter)
-        localStorage.setItem('allChecked', String(props.allChecked))
-        inputField.current.focus()
-    }, [props.todoInput, props.nextTodo, props.todos, props.filter, props.allChecked])
+        props.changeFilter(props.history.location.pathname)
+    }, [props.history.location])
 
     return (
         <section className="todoapp">
-            {props.confirm &&
-            <ConfirmContainer confirmAction={confirmAction}/>}
+            {showConfirm && <Confirm
+                action={props.action}
+                currentId={props.currentId}
+                showConfirm={setShowConfirm}
+                removeTodo={props.removeTodo}
+                clearCompleted={props.clearCompleted}
+                confirmAction={confirmAction}
+            />}
             <header className="header">
                 <h1>todos</h1>
                 <input
                     value={props.todoInput}
                     onChange={handleTodoInput}
                     onKeyUpCapture={addNewTodo}
-                    onFocus={props.hideConfirm}
+                    onFocus={() => setShowConfirm(false)}
                     ref={inputField}
                     maxLength={40}
                     className="new-todo"
@@ -82,8 +93,14 @@ export default function TodoList(props) {
                     id="btn-new"
                 >+</button>
             </header>
-            <MainContainer confirmAction={confirmAction}/>
-            <FooterContainer confirmAction={confirmAction}/>
+            <MainContainer
+                showConfirm={setShowConfirm}
+                confirmAction={confirmAction}
+            />
+            <FooterContainer
+                showConfirm={setShowConfirm}
+                confirmAction={confirmAction}
+            />
         </section>
     )
 }

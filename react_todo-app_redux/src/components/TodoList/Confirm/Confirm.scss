@@ -1,7 +1,7 @@
 @import "../../../assets/scss/utils/variables";
 
 .todoapp, .todoapp__confirm {
-    min-width: $min-width;
+    min-width: $min-width / 2;
 }
 
 .todoapp__confirm {

@@ -1,16 +1,15 @@
 import { connect } from 'react-redux'
-import Store from '../../../Store'
+import { changeFilter, clearCompleted } from '../../../store/actions/todos'
 import Footer from './Footer'
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state, ownProps) => ({
     todos: state.todos,
     filter: state.filter
 })
 
 const mapDispatchToProps = dispatch => ({
-    changeFilter: filter => dispatch(Store.changeFilter(filter))
+    changeFilter: filter => dispatch(changeFilter(filter)),
+    clearCompleted: () => dispatch(clearCompleted())
 })
 
-const FooterContainer = connect(mapStateToProps, mapDispatchToProps)(Footer)
-
-export default FooterContainer
+export default connect(mapStateToProps, mapDispatchToProps)(Footer)

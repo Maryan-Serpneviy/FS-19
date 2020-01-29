@@ -3,11 +3,11 @@ export default class Storage {
         try {
             const serializedState = localStorage.getItem('state')
             if (serializedState === null) {
-                return undefined // to let reducer initialize an app
+                return undefined
             }
             return JSON.parse(serializedState)
-        } catch (err) { // prevent app from crashing
-            return undefined // to let reducer initialize an app
+        } catch (err) {
+            return undefined
         }
     }
 
@@ -15,7 +15,7 @@ export default class Storage {
         try {
             const serializedState = JSON.stringify(state)
             localStorage.setItem('state', serializedState)
-        } catch (err) { // prevent app from crashing
+        } catch (err) {
             console.error(err)
         }
     }
